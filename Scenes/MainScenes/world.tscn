@@ -1,7 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://bibrcq4j1icbp"]
+[gd_scene load_steps=3 format=3 uid="uid://bi3vk14agdyap"]
 
-[ext_resource type="PackedScene" uid="uid://clu0ee7htk5bh" path="res://Scenes/Prefabs/player.tscn" id="1_0alba"]
+[ext_resource type="PackedScene" uid="uid://2xuoik3yu85u" path="res://Player/player.tscn" id="1_ehvkl"]
+[ext_resource type="PackedScene" uid="uid://bxw8vf2g4it62" path="res://Enemy/enemy.tscn" id="2_woslj"]
 
 [node name="World" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_0alba")]
+[node name="Player" parent="." instance=ExtResource("1_ehvkl")]
+
+[node name="enemy" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(278, 99)
+rotation = 0.261799
+
+[node name="enemy2" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(197, -103)
+
+[node name="enemy3" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(61, -140)
+
+[node name="enemy4" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(195, 206)
+
+[node name="enemy5" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(279, 14)
+
+[node name="enemy6" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(288, 193)
+
+[node name="enemy7" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(38, 212)
+
+[node name="enemy8" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(231, -31)
+
+[node name="enemy9" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(-103, 201)
+
+[node name="enemy10" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(201, 85)
+
+[node name="enemy11" parent="." instance=ExtResource("2_woslj")]
+position = Vector2(-177, 31)
