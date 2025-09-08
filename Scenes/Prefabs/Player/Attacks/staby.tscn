@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cbhu367f4smkj" path="res://Scripts/Player/Attacks/staby.gd" id="1_lb4wc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rubsf"]
-size = Vector2(79, 58)
+size = Vector2(79, 59)
 
 [node name="STABY" type="Area2D" groups=["attack"]]
 collision_layer = 4
@@ -16,7 +16,7 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_4bwtm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -1)
+position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_rubsf")
 
 [node name="Timer" type="Timer" parent="."]
