@@ -1,10 +1,21 @@
 extends CharacterBody2D
 
 @export var movement_speed = 100.0
-	
-@onready var player = get_tree().get_first_node_in_group("player")
+@export var hp = 10
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group("player")
+@onready var sprite:Sprite2D = $Sprite2D
+@onready var animation:AnimationPlayer = $AnimationPlayer
+
+func _ready():
+	animation.play("walk")
 
 func _physics_process(delta: float) -> void:
 	var direction = global_position.direction_to(player.global_position)
 	velocity = direction * movement_speed
 	move_and_slide()
+	
+	if direction.x > 0.1:
+		sprite.flip_h = true
+	elif direction.x < -0.1:
+		sprite.flip_h = false
+	
