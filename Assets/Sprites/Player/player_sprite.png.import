@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cktbqrd45l1m0"
-path="res://.godot/imported/cyclops.png-902dd97f00608f063960a8ff57d5e3a2.ctex"
+uid="uid://r83lmhtr77hc"
+path="res://.godot/imported/player_sprite.png-03921067d8fce162644c7e22be7c4255.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/cyclops.png"
-dest_files=["res://.godot/imported/cyclops.png-902dd97f00608f063960a8ff57d5e3a2.ctex"]
+source_file="res://Assets/Sprites/Player/player_sprite.png"
+dest_files=["res://.godot/imported/player_sprite.png-03921067d8fce162644c7e22be7c4255.ctex"]
 
 [params]
 
