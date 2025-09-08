@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://5ubgwi0xjbt2"]
+
+[node name="HitBox" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
