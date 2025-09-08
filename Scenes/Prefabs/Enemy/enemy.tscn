@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxw8vf2g4it62"]
+[gd_scene load_steps=11 format=3 uid="uid://bxw8vf2g4it62"]
 
 [ext_resource type="Script" uid="uid://bdyjkqxukym8t" path="res://Scripts/Enemy/enemy.gd" id="1_2pb1h"]
 [ext_resource type="Texture2D" uid="uid://cktbqrd45l1m0" path="res://Assets/cyclops.png" id="2_px1sc"]
+[ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="3_25nyl"]
+[ext_resource type="PackedScene" uid="uid://5ubgwi0xjbt2" path="res://Scenes/Prefabs/Utility/hit_box.tscn" id="4_mha1i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_022wn"]
-radius = 29.0
-height = 58.0
+radius = 12.0
+height = 46.0
 
 [sub_resource type="Animation" id="Animation_022wn"]
 resource_name = "walk"
@@ -45,6 +47,12 @@ _data = {
 &"walk": SubResource("Animation_022wn")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mha1i"]
+size = Vector2(63, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5slor"]
+size = Vector2(30.75, 55)
+
 [node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_2pb1h")
 
@@ -54,9 +62,33 @@ texture = ExtResource("2_px1sc")
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -2)
 shape = SubResource("CapsuleShape2D_022wn")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_25nyl")
 }
+
+[node name="HurtBox" parent="." instance=ExtResource("3_25nyl")]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+visible = false
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_mha1i")
+
+[node name="HitBox" parent="." instance=ExtResource("4_mha1i")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+visible = false
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_5slor")
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]

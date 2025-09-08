@@ -28,3 +28,8 @@ func movement():
 
 	velocity = mov.normalized() * movement_speed
 	move_and_slide()
+
+
+func _on_hurt_box_hurt(damage: Variant) -> void:
+	hp -= damage
+	print(hp)
