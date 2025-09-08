@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhhnhlkqdsm5t"]
+[gd_scene load_steps=3 format=3 uid="uid://dhhnhlkqdsm5t"]
 
 [ext_resource type="PackedScene" uid="uid://du4it5pvsmpvt" path="res://Scenes/MainScenes/world.tscn" id="1_xt1mu"]
 [ext_resource type="PackedScene" uid="uid://c3oe6e6xxi4xa" path="res://Scenes/MainScenes/gui.tscn" id="2_ikxey"]
-[ext_resource type="Script" uid="uid://dbs7cuiefbbtr" path="res://Scripts/API/test_call.gd" id="3_ikxey"]
 
 [node name="Main" type="Node2D"]
 
@@ -11,6 +10,5 @@
 [node name="GUI" parent="." instance=ExtResource("2_ikxey")]
 
 [node name="API" type="Node" parent="."]
-script = ExtResource("3_ikxey")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="API"]
