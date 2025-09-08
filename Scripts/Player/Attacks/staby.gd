@@ -28,5 +28,9 @@ func _physics_process(delta):
 
 func enemy_hit(charge = 1):
 	hp -= charge
-	if hp < 0:
+	if hp <= 0:
 		queue_free()
+
+
+func _on_timer_timeout():
+	queue_free()
