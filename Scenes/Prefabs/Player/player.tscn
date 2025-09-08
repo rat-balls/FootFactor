@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://2xuoik3yu85u"]
+[gd_scene load_steps=5 format=3 uid="uid://2xuoik3yu85u"]
 
 [ext_resource type="Script" uid="uid://c853uu0lk0y2t" path="res://Scripts/Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://r83lmhtr77hc" path="res://Assets/Sprites/Player/player_sprite.png" id="1_l8h54"]
@@ -6,6 +6,9 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k45qg"]
 radius = 11.0
 height = 46.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k45qg"]
+radius = 737.299
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
@@ -26,3 +29,27 @@ shape = SubResource("CapsuleShape2D_k45qg")
 unique_name_in_owner = true
 wait_time = 0.2
 one_shot = true
+
+[node name="Attacks" type="Node2D" parent="."]
+
+[node name="StabyTimer" type="Timer" parent="Attacks"]
+unique_name_in_owner = true
+wait_time = 1.5
+autostart = true
+
+[node name="StabyAttackTimer" type="Timer" parent="Attacks/StabyTimer"]
+unique_name_in_owner = true
+wait_time = 0.075
+
+[node name="EnemyDetectionArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
+shape = SubResource("CircleShape2D_k45qg")
+
+[connection signal="timeout" from="Attacks/StabyTimer" to="." method="_on_staby_timer_timeout"]
+[connection signal="timeout" from="Attacks/StabyTimer/StabyAttackTimer" to="." method="_on_staby_attack_timer_timeout"]
+[connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
+[connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
