@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bxw8vf2g4it62"]
 
 [ext_resource type="Script" uid="uid://bdyjkqxukym8t" path="res://Scripts/Enemy/enemy.gd" id="1_2pb1h"]
-[ext_resource type="Texture2D" uid="uid://cktbqrd45l1m0" path="res://Assets/cyclops.png" id="2_px1sc"]
+[ext_resource type="Texture2D" uid="uid://cktbqrd45l1m0" path="res://Assets/Sprites/Enemies/cyclops.png" id="2_px1sc"]
 [ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="3_25nyl"]
 [ext_resource type="PackedScene" uid="uid://5ubgwi0xjbt2" path="res://Scenes/Prefabs/Utility/hit_box.tscn" id="4_mha1i"]
 
