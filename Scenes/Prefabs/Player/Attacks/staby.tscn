@@ -1,13 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyyugjugas184"]
+[gd_scene load_steps=5 format=3 uid="uid://cyyugjugas184"]
 
 [ext_resource type="Texture2D" uid="uid://bdkysqo7f5xni" path="res://Assets/Sprites/Player/Attacks/STABY.png" id="1_4bwtm"]
 [ext_resource type="Script" uid="uid://cbhu367f4smkj" path="res://Scripts/Player/Attacks/staby.gd" id="1_lb4wc"]
+[ext_resource type="AudioStream" uid="uid://x0nm6hkhee0o" path="res://Assets/SFX/Révolution Verte.mp3" id="3_lb4wc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rubsf"]
-size = Vector2(79, 59)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lb4wc"]
+radius = 24.0
+height = 71.0
 
 [node name="STABY" type="Area2D" groups=["attack"]]
 top_level = true
+scale = Vector2(0.1, 0.1)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_lb4wc")
@@ -15,15 +18,20 @@ script = ExtResource("1_lb4wc")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_4bwtm")
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -0.5)
-shape = SubResource("RectangleShape2D_rubsf")
+position = Vector2(0, 4)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_lb4wc")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
 ignore_time_scale = true
 
 [node name="snd_play" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_lb4wc")
+volume_db = -12.48
+autoplay = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

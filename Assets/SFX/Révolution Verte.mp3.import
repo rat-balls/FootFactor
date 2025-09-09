@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://x0nm6hkhee0o"
+path="res://.godot/imported/Révolution Verte.mp3-d2c087fabccf32387697502429bb7231.mp3str"
+
+[deps]
+
+source_file="res://Assets/SFX/Révolution Verte.mp3"
+dest_files=["res://.godot/imported/Révolution Verte.mp3-d2c087fabccf32387697502429bb7231.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

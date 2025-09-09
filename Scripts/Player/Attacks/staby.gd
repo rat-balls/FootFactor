@@ -14,14 +14,17 @@ var angle = Vector2.ZERO
 
 func _ready():
 	angle = global_position.direction_to(target)
-	rotation = angle.angle() + deg_to_rad(135)
+	rotation = angle.angle() + deg_to_rad(0)
 	match level:
 		1:
-			hp = 1
+			hp = 2
 			speed = 100
 			damage = 5
 			knock_amount = 100
 			attack_size = 1.0
+			
+	var tween = create_tween()
+	tween.tween_property(self, "scale", Vector2(0.2+attack_size,0.2+attack_size), 1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 
 func _physics_process(delta):
 	position += angle * speed * delta
