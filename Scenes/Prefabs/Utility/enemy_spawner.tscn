@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://qwcicut6l3mm"]
+
+[ext_resource type="Script" uid="uid://es2yv7rdps0c" path="res://Scripts/Utility/enemy_spawner.gd" id="1_wphtq"]
+[ext_resource type="Script" uid="uid://l7shxdavf4b2" path="res://Scripts/Utility/spawn_info.gd" id="2_g2mcj"]
+[ext_resource type="PackedScene" uid="uid://bxw8vf2g4it62" path="res://Scenes/Prefabs/Enemy/enemy.tscn" id="3_wuim1"]
+
+[sub_resource type="Resource" id="Resource_wuim1"]
+script = ExtResource("2_g2mcj")
+time_start = 0
+time_end = 60
+enemy = ExtResource("3_wuim1")
+enemy_num = 3
+enemy_spawn_delay = 3
+metadata/_custom_type_script = "uid://l7shxdavf4b2"
+
+[sub_resource type="Resource" id="Resource_cimf0"]
+script = ExtResource("2_g2mcj")
+time_start = 0
+time_end = 50
+enemy = ExtResource("3_wuim1")
+enemy_num = 1
+enemy_spawn_delay = 1
+metadata/_custom_type_script = "uid://l7shxdavf4b2"
+
+[node name="EnemySpawner" type="Node2D"]
+script = ExtResource("1_wphtq")
+spawns = Array[ExtResource("2_g2mcj")]([SubResource("Resource_wuim1"), SubResource("Resource_cimf0")])
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

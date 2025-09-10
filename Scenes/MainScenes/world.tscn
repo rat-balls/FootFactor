@@ -1,15 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://du4it5pvsmpvt"]
 
 [ext_resource type="PackedScene" uid="uid://2xuoik3yu85u" path="res://Scenes/Prefabs/Player/player.tscn" id="1_ehvkl"]
-[ext_resource type="PackedScene" uid="uid://bxw8vf2g4it62" path="res://Scenes/Prefabs/Enemy/enemy.tscn" id="2_woslj"]
+[ext_resource type="PackedScene" uid="uid://qwcicut6l3mm" path="res://Scenes/Prefabs/Utility/enemy_spawner.tscn" id="1_woslj"]
 
 [node name="World" type="Node2D"]
 
+[node name="EnemySpawner" parent="." instance=ExtResource("1_woslj")]
+
 [node name="Player" parent="." instance=ExtResource("1_ehvkl")]
 position = Vector2(604, 338)
-
-[node name="enemy" parent="." instance=ExtResource("2_woslj")]
-position = Vector2(1249, 402)
-
-[node name="enemy2" parent="." instance=ExtResource("2_woslj")]
-position = Vector2(609, 234)
