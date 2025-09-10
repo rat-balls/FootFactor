@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://du4it5pvsmpvt"]
+[gd_scene load_steps=3 format=3 uid="uid://bi3vk14agdyap"]
 
 [ext_resource type="PackedScene" uid="uid://2xuoik3yu85u" path="res://Scenes/Prefabs/Player/player.tscn" id="1_ehvkl"]
-[ext_resource type="PackedScene" uid="uid://qwcicut6l3mm" path="res://Scenes/Prefabs/Utility/enemy_spawner.tscn" id="1_woslj"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Utility/enemy_spawner.tscn" id="1_woslj"]
 
 [node name="World" type="Node2D"]
 
@@ -9,3 +9,5 @@
 
 [node name="Player" parent="." instance=ExtResource("1_ehvkl")]
 position = Vector2(604, 338)
+
+[node name="Loot" type="Node2D" parent="." groups=["loot"]]
