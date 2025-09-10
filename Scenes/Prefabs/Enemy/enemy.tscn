@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bxw8vf2g4it62"]
+[gd_scene load_steps=12 format=3 uid="uid://bxw8vf2g4it62"]
 
 [ext_resource type="Script" uid="uid://bdyjkqxukym8t" path="res://Scripts/Enemy/enemy.gd" id="1_2pb1h"]
 [ext_resource type="Texture2D" uid="uid://cktbqrd45l1m0" path="res://Assets/Sprites/Enemies/cyclops.png" id="2_px1sc"]
 [ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="3_25nyl"]
 [ext_resource type="PackedScene" uid="uid://5ubgwi0xjbt2" path="res://Scenes/Prefabs/Utility/hit_box.tscn" id="4_mha1i"]
+[ext_resource type="AudioStream" uid="uid://373vs02i61cx" path="res://Assets/Sounds/Audio_SoundEffect_enemy_hit.ogg" id="5_5slor"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_022wn"]
 radius = 12.0
@@ -75,6 +76,7 @@ libraries = {
 [node name="HurtBox" parent="." instance=ExtResource("3_25nyl")]
 collision_layer = 4
 collision_mask = 4
+HurtBoxType = 1
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 visible = false
@@ -89,6 +91,10 @@ collision_mask = 2
 visible = false
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_5slor")
+
+[node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_5slor")
+volume_db = -20.0
 
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 

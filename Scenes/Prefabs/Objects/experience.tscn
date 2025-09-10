@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b31viodtbfo18"]
+
+[ext_resource type="Texture2D" uid="uid://bwdmegluolm6q" path="res://Assets/Sprites/Items/Gem_green.png" id="1_cpvmr"]
+[ext_resource type="Script" uid="uid://hvgs1if2wfoq" path="res://Scripts/Objects/experience.gd" id="1_f34j5"]
+[ext_resource type="AudioStream" uid="uid://c4bbxvqk5xqey" path="res://Assets/Sounds/collectgem.mp3" id="3_p6hdm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpvmr"]
+
+[node name="Experience" type="Area2D" groups=["loot"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_f34j5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cpvmr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_cpvmr")
+
+[node name="snd_collected" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_p6hdm")
+volume_db = -10.0
+
+[connection signal="finished" from="snd_collected" to="." method="_on_snd_collected_finished"]
