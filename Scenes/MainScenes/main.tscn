@@ -10,5 +10,3 @@
 [node name="GUI" parent="." instance=ExtResource("2_ikxey")]
 
 [node name="API" type="Node" parent="."]
-
-[node name="HTTPRequest" type="HTTPRequest" parent="API"]

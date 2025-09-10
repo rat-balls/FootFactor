@@ -89,4 +89,3 @@ func _on_enemy_detection_area_body_exited(body):
 
 func _on_hurt_box_hurt(damage: Variant) -> void:
 	hp -= damage
-	print(hp)

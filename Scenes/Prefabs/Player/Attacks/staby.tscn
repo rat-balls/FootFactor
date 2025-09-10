@@ -31,7 +31,6 @@ ignore_time_scale = true
 
 [node name="snd_play" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_lb4wc")
-volume_db = -12.48
-autoplay = true
+volume_db = -25.782
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
