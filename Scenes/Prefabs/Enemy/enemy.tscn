@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cktbqrd45l1m0" path="res://Assets/Sprites/Enemies/cyclops.png" id="2_px1sc"]
 [ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="3_25nyl"]
 [ext_resource type="PackedScene" uid="uid://5ubgwi0xjbt2" path="res://Scenes/Prefabs/Utility/hit_box.tscn" id="4_mha1i"]
-[ext_resource type="AudioStream" uid="uid://373vs02i61cx" path="res://Assets/Sounds/Audio_SoundEffect_enemy_hit.ogg" id="5_5slor"]
+[ext_resource type="AudioStream" uid="uid://373vs02i61cx" path="res://Assets/SFX/Audio_SoundEffect_enemy_hit.ogg" id="5_5slor"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_022wn"]
 radius = 12.0

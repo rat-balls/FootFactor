@@ -16,7 +16,7 @@ var staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn")
 
 #Staby Nodes
 var staby_ammo = 0
-var staby_baseammo = 2
+var staby_baseammo = 1
 var staby_attackspeed = 2.5
 var staby_level = 1
 

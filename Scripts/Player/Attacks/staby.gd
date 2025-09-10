@@ -20,7 +20,7 @@ func _ready():
 			hp = 3
 			speed = 100
 			damage = 5
-			knockback_amount = 100
+			knockback_amount = 200
 			attack_size = 1.0
 			
 	var tween = create_tween()
