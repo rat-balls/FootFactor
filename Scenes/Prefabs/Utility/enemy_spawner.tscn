@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://es2yv7rdps0c" path="res://Scripts/Utility/enemy_spawner.gd" id="1_wphtq"]
 [ext_resource type="Script" uid="uid://l7shxdavf4b2" path="res://Scripts/Utility/spawn_info.gd" id="2_g2mcj"]
-[ext_resource type="PackedScene" uid="uid://bxw8vf2g4it62" path="res://Scenes/Prefabs/Enemy/enemy.tscn" id="3_wuim1"]
+[ext_resource type="PackedScene" uid="uid://bxw8vf2g4it62" path="res://Scenes/Prefabs/Enemy/fish_enemy.tscn" id="3_wuim1"]
 
 [sub_resource type="Resource" id="Resource_wuim1"]
 script = ExtResource("2_g2mcj")
