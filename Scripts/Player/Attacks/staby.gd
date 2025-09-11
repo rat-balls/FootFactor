@@ -28,12 +28,26 @@ func update_staby():
 	level = player.staby_level
 	match level:
 		1:
-			hp = hp
-			speed = speed
-			damage = damage
-			knockback_amount = knockback_amount
-			attack_size = attack_size
-			attack_speed = attack_speed
+			hp = 9999
+			speed = 200.0
+			damage = 10
+			knockback_amount = 100
+			attack_size = 1.0 * (1 + player.spell_size)
+			attack_speed = 5.0 * (1 - player.spell_cooldow)
+		2:
+			hp = 9999
+			speed = 200.0
+			damage = 10
+			knockback_amount = 100
+			attack_size = 1.0 * (1 + player.spell_size)
+			attack_speed = 5.0 * (1 - player.spell_cooldow)
+		3:
+			hp = 9999
+			speed = 200.0
+			damage = 15
+			knockback_amount = 120
+			attack_size = 1.0 * (1 + player.spell_size)
+			attack_speed = 5.0 * (1 - player.spell_cooldow)
 	
 	scale = Vector2(1.0, 1.0) * attack_size
 	attack_timer.wait_time = attack_speed

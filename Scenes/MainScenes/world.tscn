@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://bi3vk14agdyap"]
 
 [ext_resource type="PackedScene" uid="uid://2xuoik3yu85u" path="res://Scenes/Prefabs/Player/player.tscn" id="1_ehvkl"]
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Utility/enemy_spawner.tscn" id="1_woslj"]
-[ext_resource type="Script" path="res://Scripts/Utility/spawn_info.gd" id="2_uww6s"]
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Enemy/fish_enemy.tscn" id="3_bstb2"]
+[ext_resource type="PackedScene" uid="uid://qwcicut6l3mm" path="res://Scenes/Prefabs/Utility/enemy_spawner.tscn" id="1_woslj"]
+[ext_resource type="Script" uid="uid://l7shxdavf4b2" path="res://Scripts/Utility/spawn_info.gd" id="2_uww6s"]
+[ext_resource type="PackedScene" uid="uid://bxw8vf2g4it62" path="res://Scenes/Prefabs/Enemy/fish_enemy.tscn" id="3_bstb2"]
 [ext_resource type="PackedScene" uid="uid://b31viodtbfo18" path="res://Scenes/Prefabs/Objects/experience.tscn" id="3_woslj"]
 
 [sub_resource type="Resource" id="Resource_87h1v"]

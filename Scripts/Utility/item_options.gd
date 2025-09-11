@@ -1,8 +1,8 @@
 extends ColorRect
 
 @onready var lblName = $lbl_name
-@onready var lblDescription = $lblDescription 
-@onready var lblLevel = $lblLevel
+@onready var lblDescription = $lbl_desc 
+@onready var lblLevel = $lbl_level
 @onready var itemIcon = $ColorRect/ItemIcon
 
 

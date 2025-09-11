@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 var movement_speed = 300.0
 var hp = 80
+var maxhp = 80
 var last_movement = Vector2.UP
 
 var experience = 0 
@@ -62,6 +63,7 @@ var enemy_close = []
 @onready var itemOptions = preload("res://Scenes/Prefabs/Utility/item_options.tscn")
 
 func _ready():
+	upgrade_character("icespear1")
 	attack()
 	set_expBar(experience, calculate_experiencecap())
 
@@ -91,11 +93,11 @@ func movement():
 
 func attack():
 	if(iceSpear_level > 0):
-		iceSpearTimer.wait_time = iceSpear_attackspeed
+		iceSpearTimer.wait_time = iceSpear_attackspeed * (1 - spell_cooldow)
 		if iceSpearTimer.is_stopped():
 			iceSpearTimer.start()
 	if(letter_level > 0):
-		letterTimer.wait_time = letter_attackspeed
+		letterTimer.wait_time = letter_attackspeed * (1 - spell_cooldow)
 		if letterTimer.is_stopped():
 			letterTimer.start()
 	if staby_level > 0:
@@ -103,7 +105,7 @@ func attack():
 
 
 func _on_iceSpear_timer_timeout():
-	iceSpear_ammo += iceSpear_baseammo
+	iceSpear_ammo += iceSpear_baseammo + additional_attack
 	iceSpearAttackTimer.start()
 
 func _on_iceSpear_attack_timer_timeout():
@@ -121,7 +123,7 @@ func _on_iceSpear_attack_timer_timeout():
 
 
 func _on_letter_timer_timeout() -> void:
-	letter_ammo += letter_baseammo
+	letter_ammo += letter_baseammo + additional_attack
 	letterAttackTimer.start()
 
 func _on_letter_attack_timer_timeout() -> void:
@@ -142,6 +144,12 @@ func spawn_staby():
 	staby_spawn.global_position = global_position
 	staby_base.add_child(staby_spawn)
 	
+	#update staby
+	var get_stabies = staby_base.get_children()
+	for i in get_stabies:
+		if i.has_method("update_staby"):
+			i.update_staby()
+	
 
 func get_random_target():
 	if enemy_close.size() > 0:
@@ -158,7 +166,7 @@ func _on_enemy_detection_area_body_exited(body):
 		enemy_close.erase(body)
 
 func _on_hurt_box_hurt(damage: Variant, _angle, _knockback) -> void:
-	hp -= damage 
+	hp -= clamp(damage - armor, 1.0, 999.0)
 
 
 func _on_grab_area_area_entered(area: Area2D) -> void:
@@ -210,18 +218,66 @@ func level_up():
 	var options = 0
 	var options_max = 3
 	while options < options_max:
-		var optionChoice = itemOptions.instantiate()
-		optionChoice.item = get_random_item()
-		upgradeOptions.add_child(optionChoice)
+		var option_choice = itemOptions.instantiate()
+		option_choice.item = get_random_item()
+		upgradeOptions.add_child(option_choice)
 		options += 1
 	
 	get_tree().paused = true
 
 func upgrade_character(upgrade):
+	match upgrade:
+		"icespear1":
+			iceSpear_level = 1
+			iceSpear_baseammo += 1
+		"icespear2":
+			iceSpear_level = 2
+			iceSpear_baseammo += 1
+		"icespear3":
+			iceSpear_level = 3
+		"icespear4":
+			iceSpear_level = 4
+			iceSpear_baseammo += 2
+		"letter1":
+			letter_level = 1
+			letter_baseammo += 1
+		"letter2":
+			letter_level = 2
+			letter_baseammo += 1
+		"letter3":
+			letter_level = 3
+			letter_attackspeed -= 0.5
+		"letter4":
+			letter_level = 4
+			letter_baseammo += 1
+		"staby1":
+			staby_level = 1
+			staby_ammo = 1
+		"staby2":
+			staby_level = 2
+		"staby3":
+			staby_level = 3
+		"staby4":
+			staby_level = 4
+		"armor1","armor2","armor3","armor4":
+			armor += 1
+		"speed1","speed2","speed3","speed4":
+			movement_speed += 20.0
+		"tome1","tome2","tome3","tome4":
+			spell_size += 0.10
+		"scroll1","scroll2","scroll3","scroll4":
+			spell_cooldow += 0.05
+		"ring1","ring2":
+			additional_attack += 1
+		"food":
+			hp += 20
+			hp = clamp(hp,0,maxhp)
+	attack()
+	
 	var option_children = upgradeOptions.get_children()
 	for i in option_children:
 		i.queue_free()
-	upgradeOptions.clear()
+	upgrade_options.clear()
 	collected_upgrades.append(upgrade)
 	levelPanel.visible = false
 	levelPanel.position = Vector2(1400, 500)
