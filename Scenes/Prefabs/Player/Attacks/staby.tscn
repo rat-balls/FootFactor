@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0ir5fpwemn52"]
+
+[ext_resource type="Texture2D" uid="uid://bdkysqo7f5xni" path="res://Assets/Sprites/Player/Attacks/STABY.png" id="1_4bwtm"]
+[ext_resource type="Script" uid="uid://b1qyvgqknkdyo" path="res://Scripts/Player/Attacks/staby.gd" id="1_lb4wc"]
+[ext_resource type="AudioStream" uid="uid://x0nm6hkhee0o" path="res://Assets/SFX/Révolution Verte.mp3" id="3_lb4wc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lb4wc"]
+size = Vector2(50, 80)
+
+[node name="Staby" type="Area2D" groups=["attack"]]
+top_level = true
+scale = Vector2(0.1, 0.1)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_lb4wc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 10
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_4bwtm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.18252e-05, 5)
+rotation = 1.5708
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("RectangleShape2D_lb4wc")
+disabled = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+
+[node name="ChargeTimer" type="Timer" parent="AttackTimer"]
+unique_name_in_owner = true
+wait_time = 3.0
+
+[node name="snd_play" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_lb4wc")
+volume_db = -25.782
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="AttackTimer/ChargeTimer" to="." method="_on_charge_timer_timeout"]

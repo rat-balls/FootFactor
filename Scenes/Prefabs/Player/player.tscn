@@ -28,6 +28,8 @@ motion_mode = 1
 script = ExtResource("1_4ntmi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 scale = Vector2(2, 2)
 texture = ExtResource("1_l8h54")
 hframes = 2
@@ -60,6 +62,9 @@ wait_time = 3.0
 [node name="LetterAttackTimer" type="Timer" parent="Attacks/LetterTimer"]
 unique_name_in_owner = true
 wait_time = 0.2
+
+[node name="StabyBase" type="Node2D" parent="Attacks"]
+unique_name_in_owner = true
 
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 4
