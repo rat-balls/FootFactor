@@ -15,6 +15,7 @@ collision_mask = 0
 script = ExtResource("1_1pkjb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 10
 position = Vector2(7.62939e-06, 7.62939e-06)
 scale = Vector2(0.0285714, 0.0285714)
 texture = ExtResource("2_1pkjb")
@@ -26,7 +27,6 @@ shape = SubResource("RectangleShape2D_wd1fk")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
-ignore_time_scale = true
 
 [node name="snd_play" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_tofrh")

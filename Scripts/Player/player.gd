@@ -8,27 +8,35 @@ var last_movement = Vector2.UP
 var experience = 0 
 var experience_level = 1 
 var collected_experience = 0
+
 #Attacks
-var iceSpear: Resource = preload("res://Scenes/Prefabs/Player/Attacks/iceSpear.tscn")
-var letter: Resource = preload("res://Scenes/Prefabs/Player/Attacks/letter.tscn")
+const iceSpear: Resource = preload("res://Scenes/Prefabs/Player/Attacks/iceSpear.tscn")
+const letter: Resource = preload("res://Scenes/Prefabs/Player/Attacks/letter.tscn")
+const staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn")
 
 #Attack Nodes
 @onready var iceSpearTimer: Timer = get_node("%IceSpearTimer")
 @onready var iceSpearAttackTimer: Timer =  iceSpearTimer.get_node("%IceSpearAttackTimer")
 @onready var letterTimer: Timer = get_node("%LetterTimer")
 @onready var letterAttackTimer: Timer =  iceSpearTimer.get_node("%LetterAttackTimer")
+@onready var staby_base: Node2D = get_node("%StabyBase")
+
 
 #iceSpear Nodes
 var iceSpear_ammo = 0
 var iceSpear_baseammo = 1
 var iceSpear_attackspeed = 5
-var iceSpear_level = 1
+var iceSpear_level = 0
 
 #Letter Nodes
 var letter_ammo = 0
 var letter_baseammo = 3
 var letter_attackspeed = 3
 var letter_level = 0
+
+#Staby
+var staby_ammo = 3
+var staby_level = 1
 
 #Enemy Related
 var enemy_close = []
@@ -74,7 +82,6 @@ func movement():
 
 func attack():
 	if(iceSpear_level > 0):
-		print("icepsear")
 		iceSpearTimer.wait_time = iceSpear_attackspeed
 		if iceSpearTimer.is_stopped():
 			iceSpearTimer.start()
@@ -82,16 +89,16 @@ func attack():
 		letterTimer.wait_time = letter_attackspeed
 		if letterTimer.is_stopped():
 			letterTimer.start()
+	if staby_level > 0:
+		spawn_staby()
 
 
 func _on_iceSpear_timer_timeout():
 	iceSpear_ammo += iceSpear_baseammo
 	iceSpearAttackTimer.start()
-	print("icepsear2")
 
 func _on_iceSpear_attack_timer_timeout():
 	if iceSpear_ammo > 0:
-		print("icepsear3")
 		var iceSpear_attack = iceSpear.instantiate()
 		iceSpear_attack.position = position
 		iceSpear_attack.target = get_random_target()
@@ -121,6 +128,12 @@ func _on_letter_attack_timer_timeout() -> void:
 		else:
 			letterAttackTimer.stop()
 
+func spawn_staby():
+	var staby_spawn = staby.instantiate()
+	staby_spawn.global_position = global_position
+	staby_base.add_child(staby_spawn)
+	
+
 func get_random_target():
 	if enemy_close.size() > 0:
 		return enemy_close.pick_random().global_position
@@ -137,7 +150,6 @@ func _on_enemy_detection_area_body_exited(body):
 
 func _on_hurt_box_hurt(damage: Variant, _angle, _knockback) -> void:
 	hp -= damage 
-	print(hp)
 
 
 func _on_grab_area_area_entered(area: Area2D) -> void:

@@ -16,6 +16,7 @@ collision_mask = 0
 script = ExtResource("1_lb4wc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 10
 position = Vector2(1.215, 0)
 texture = ExtResource("2_jtc7l")
 flip_h = true
@@ -27,7 +28,6 @@ shape = SubResource("CapsuleShape2D_lb4wc")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
-ignore_time_scale = true
 
 [node name="snd_play" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_lb4wc")
