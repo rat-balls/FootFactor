@@ -26,13 +26,13 @@ const staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn"
 var iceSpear_ammo = 0
 var iceSpear_baseammo = 1
 var iceSpear_attackspeed = 5
-var iceSpear_level = 0
+var iceSpear_level = 1
 
 #Letter Nodes
 var letter_ammo = 0
 var letter_baseammo = 3
 var letter_attackspeed = 3
-var letter_level = 0
+var letter_level = 1
 
 #Staby
 var staby_ammo = 3
@@ -63,19 +63,31 @@ func movement():
 	var x_mov = Input.get_action_strength("Right") - Input.get_action_strength("Left")
 	var y_mov = Input.get_action_strength("Down") - Input.get_action_strength("Up")
 	var mov = Vector2(x_mov, y_mov)
-	if mov.x > 0:
-		sprite.flip_h = true
-	elif mov.x < 0:
-		sprite.flip_h = false
-
+	
+	match mov:
+		Vector2(-1, 1):
+			sprite.frame = 6
+			#up_right
+		Vector2(1, 1):
+			sprite.frame = 3
+			#down_right
+		Vector2(-1, -1):
+			sprite.frame = 7
+			#up_left
+		Vector2(1, -1):
+			sprite.frame = 4
+			#down_left
+		Vector2.UP:
+			sprite.frame = 0
+		Vector2.DOWN:
+			sprite.frame = 1
+		Vector2.RIGHT:
+			sprite.frame = 2
+		Vector2.LEFT:
+			sprite.frame = 5
+	
 	if mov != Vector2.ZERO:
 		last_movement = mov
-		if walkTimer.is_stopped():
-			if sprite.frame >= sprite.hframes - 1:
-				sprite.frame = 0
-			else: 
-				sprite.frame = 1
-			walkTimer.start()
 
 	velocity = mov.normalized() * movement_speed
 	move_and_slide()
