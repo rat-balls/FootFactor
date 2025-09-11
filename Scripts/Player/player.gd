@@ -3,22 +3,32 @@ extends CharacterBody2D
 
 var movement_speed = 300.0
 var hp = 80
+var last_movement = Vector2.UP
 
 var experience = 0 
 var experience_level = 1 
 var collected_experience = 0
 #Attacks
 var staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn")
+var letter: Resource = preload("res://Scenes/Prefabs/Player/Attacks/letter.tscn")
 
 #Attack Nodes
 @onready var stabyTimer: Timer = get_node("%StabyTimer")
 @onready var stabyAttackTimer: Timer =  stabyTimer.get_node("%StabyAttackTimer")
+@onready var letterTimer: Timer = get_node("%LetterTimer")
+@onready var letterAttackTimer: Timer =  stabyTimer.get_node("%LetterAttackTimer")
 
 #Staby Nodes
 var staby_ammo = 0
 var staby_baseammo = 1
-var staby_attackspeed = 2.5
+var staby_attackspeed = 5
 var staby_level = 1
+
+#Letter Nodes
+var letter_ammo = 0
+var letter_baseammo = 3
+var letter_attackspeed = 3
+var letter_level = 1
 
 #Enemy Related
 var enemy_close = []
@@ -47,6 +57,7 @@ func movement():
 		sprite.flip_h = false
 
 	if mov != Vector2.ZERO:
+		last_movement = mov
 		if walkTimer.is_stopped():
 			if sprite.frame >= sprite.hframes - 1:
 				sprite.frame = 0
@@ -62,6 +73,10 @@ func attack():
 		stabyTimer.wait_time = staby_attackspeed
 		if stabyTimer.is_stopped():
 			stabyTimer.start()
+	if(letter_level > 0):
+		letterTimer.wait_time = letter_attackspeed
+		if letterTimer.is_stopped():
+			letterTimer.start()
 
 
 func _on_staby_timer_timeout():
@@ -80,6 +95,24 @@ func _on_staby_attack_timer_timeout():
 			stabyAttackTimer.start()
 		else:
 			stabyAttackTimer.stop()
+
+
+func _on_letter_timer_timeout() -> void:
+	letter_ammo += letter_baseammo
+	letterAttackTimer.start()
+
+func _on_letter_attack_timer_timeout() -> void:
+	if letter_ammo > 0:
+		var letter_attack = letter.instantiate()
+		letter_attack.position = position
+		letter_attack.last_movement = last_movement
+		letter_attack.level = letter_level
+		add_child(letter_attack)
+		letter_ammo -= 1
+		if letter_ammo > 0:
+			letterAttackTimer.start()
+		else:
+			letterAttackTimer.stop()
 
 func get_random_target():
 	if enemy_close.size() > 0:

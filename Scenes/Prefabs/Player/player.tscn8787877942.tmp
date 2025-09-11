@@ -47,6 +47,7 @@ one_shot = true
 [node name="StabyTimer" type="Timer" parent="Attacks"]
 unique_name_in_owner = true
 wait_time = 3.0
+autostart = true
 
 [node name="StabyAttackTimer" type="Timer" parent="Attacks/StabyTimer"]
 unique_name_in_owner = true
@@ -54,11 +55,9 @@ wait_time = 0.075
 
 [node name="LetterTimer" type="Timer" parent="Attacks"]
 unique_name_in_owner = true
-wait_time = 3.0
 
 [node name="LetterAttackTimer" type="Timer" parent="Attacks/LetterTimer"]
 unique_name_in_owner = true
-wait_time = 0.2
 
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 4

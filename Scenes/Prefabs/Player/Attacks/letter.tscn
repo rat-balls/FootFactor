@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://b53rpksg5yaao"]
+
+[ext_resource type="Script" uid="uid://bfhpjaka0r2a" path="res://Scripts/Player/Attacks/letter.gd" id="1_1pkjb"]
+[ext_resource type="Texture2D" uid="uid://dk31qj6w6tqnp" path="res://Assets/Sprites/Player/Attacks/open-old-envelope-and-protruding-letter-generative-ai-free-png.webp" id="2_1pkjb"]
+[ext_resource type="AudioStream" uid="uid://x0nm6hkhee0o" path="res://Assets/SFX/Révolution Verte.mp3" id="3_tofrh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wd1fk"]
+size = Vector2(14.975, 22.125)
+
+[node name="Letter" type="Area2D" groups=["attack"]]
+top_level = true
+scale = Vector2(0.1, 0.1)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_1pkjb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.62939e-06, 7.62939e-06)
+scale = Vector2(0.0285714, 0.0285714)
+texture = ExtResource("2_1pkjb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.335)
+rotation = 1.5708
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_wd1fk")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+ignore_time_scale = true
+
+[node name="snd_play" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_tofrh")
+volume_db = -25.782
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
