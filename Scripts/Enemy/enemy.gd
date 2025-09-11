@@ -19,7 +19,8 @@ var exp_gem = preload("res://Scenes/Prefabs/Objects/experience.tscn")
 signal remove_from_array(object)
 
 func _ready():
-	animation.play("walk")
+	pass
+	#animation.play("walk")
 
 func _physics_process(_delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
@@ -28,10 +29,40 @@ func _physics_process(_delta: float) -> void:
 	velocity += knockback
 	move_and_slide()
 	
-	if direction.x > 0.1:
-		sprite.flip_h = true
-	elif direction.x < -0.1:
-		sprite.flip_h = false
+	var right_big = direction.x > 0.5
+	var right_small = direction.x > 0.25
+	var up_big = direction.y < -0.5
+	var up_small = direction.y < -0.25
+	var down_big = direction.y > 0.5
+	var down_small = direction.y > 0.25
+	var left_big = direction.x < -0.5
+	var left_small = direction.x < -0.25
+	
+	if up_big and right_small:
+		sprite.frame = 5
+		#up_right
+	elif up_big and left_small:
+		sprite.frame = 2
+		#up_left
+	elif down_big and right_small:
+		sprite.frame = 0
+		#down_right
+	elif down_big and left_small:
+		sprite.frame = 1
+		#down_left
+	elif up_big:
+		sprite.frame = 6
+		#up
+	elif down_big:
+		sprite.frame = 4
+		#down
+	elif right_big:
+		sprite.frame = 7
+		#right
+	elif left_big:
+		sprite.frame = 3
+		#left
+	
 
 func death():
 	emit_signal("remove_from_array", self )
