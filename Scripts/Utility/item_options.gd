@@ -18,7 +18,7 @@ func _ready():
 	connect("selected_upgrade", Callable(player, "upgrade_character"))
 	lblName.text = UpgradeDb.UPGRADES[item]["displayname"]
 	lblDescription.text = UpgradeDb.UPGRADES[item]["details"]
-	lblLevel.text = UpgradeDb.UPGRADES[item]["displayname"]
+	lblLevel.text = UpgradeDb.UPGRADES[item]["level"]
 	itemIcon.texture = load(UpgradeDb.UPGRADES[item]["icon"])
 	
 func _input(event: InputEvent) -> void:
