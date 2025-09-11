@@ -22,15 +22,6 @@ const staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn"
 @onready var staby_base: Node2D = get_node("%StabyBase")
 
 
-#UPGRADES
-var collected_upgrades = []
-var upgrade_options = []
-var armor = 0
-var speed = 0
-var spell_cooldow = 0
-var spell_size = 0
-var additional_attack = 0
-
 #iceSpear Nodes
 var iceSpear_ammo = 0
 var iceSpear_baseammo = 1
@@ -211,7 +202,6 @@ func level_up():
 	var options_max = 3
 	while options < options_max:
 		var optionChoice = itemOptions.instantiate()
-		optionChoice.item = get_random_item()
 		upgradeOptions.add_child(optionChoice)
 		options += 1
 	
@@ -221,34 +211,7 @@ func upgrade_character(upgrade):
 	var option_children = upgradeOptions.get_children()
 	for i in option_children:
 		i.queue_free()
-	upgradeOptions.clear()
-	collected_upgrades.append(upgrade)
 	levelPanel.visible = false
 	levelPanel.position = Vector2(1400, 500)
 	get_tree().paused = false
 	calculate_experience(0)
-
-func get_random_item():
-	var dbList = []
-	for i in UpgradeDb.UPGRADES:
-		if i in collected_upgrades: 
-			pass
-		elif i in upgrade_options:
-			pass
-		elif UpgradeDb.UPGRADES[i]["type"] == "item":
-			pass
-		elif UpgradeDb.UPGRADES[i]["prerequisite"].size() > 0:
-			for n in UpgradeDb.UPGRADES[i]["prerequisite"]:
-				if not n in collected_upgrades:
-					pass
-				else:
-					dbList.append(i)
-		else:
-			dbList.append(i)
-	if dbList.size() > 0:
-		var randomitem = dbList.pick_random()
-		upgrade_options.append(randomitem)
-		return randomitem
-	else:
-		return null
-			
