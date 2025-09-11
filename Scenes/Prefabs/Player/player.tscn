@@ -45,11 +45,11 @@ one_shot = true
 
 [node name="Attacks" type="Node2D" parent="."]
 
-[node name="StabyTimer" type="Timer" parent="Attacks"]
+[node name="IceSpearTimer" type="Timer" parent="Attacks"]
 unique_name_in_owner = true
 wait_time = 3.0
 
-[node name="StabyAttackTimer" type="Timer" parent="Attacks/StabyTimer"]
+[node name="IceSpearAttackTimer" type="Timer" parent="Attacks/IceSpearTimer"]
 unique_name_in_owner = true
 wait_time = 0.075
 
@@ -164,8 +164,8 @@ unique_name_in_owner = true
 stream = ExtResource("6_e6m8t")
 pitch_scale = 4.0
 
-[connection signal="timeout" from="Attacks/StabyTimer" to="." method="_on_staby_timer_timeout"]
-[connection signal="timeout" from="Attacks/StabyTimer/StabyAttackTimer" to="." method="_on_staby_attack_timer_timeout"]
+[connection signal="timeout" from="Attacks/IceSpearTimer" to="." method="_on_iceSpear_timer_timeout"]
+[connection signal="timeout" from="Attacks/IceSpearTimer/IceSpearAttackTimer" to="." method="_on_iceSpear_attack_timer_timeout"]
 [connection signal="timeout" from="Attacks/LetterTimer" to="." method="_on_letter_timer_timeout"]
 [connection signal="timeout" from="Attacks/LetterTimer/LetterAttackTimer" to="." method="_on_letter_attack_timer_timeout"]
 [connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]

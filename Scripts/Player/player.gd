@@ -9,26 +9,26 @@ var experience = 0
 var experience_level = 1 
 var collected_experience = 0
 #Attacks
-var staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn")
+var iceSpear: Resource = preload("res://Scenes/Prefabs/Player/Attacks/iceSpear.tscn")
 var letter: Resource = preload("res://Scenes/Prefabs/Player/Attacks/letter.tscn")
 
 #Attack Nodes
-@onready var stabyTimer: Timer = get_node("%StabyTimer")
-@onready var stabyAttackTimer: Timer =  stabyTimer.get_node("%StabyAttackTimer")
+@onready var iceSpearTimer: Timer = get_node("%IceSpearTimer")
+@onready var iceSpearAttackTimer: Timer =  iceSpearTimer.get_node("%IceSpearAttackTimer")
 @onready var letterTimer: Timer = get_node("%LetterTimer")
-@onready var letterAttackTimer: Timer =  stabyTimer.get_node("%LetterAttackTimer")
+@onready var letterAttackTimer: Timer =  iceSpearTimer.get_node("%LetterAttackTimer")
 
-#Staby Nodes
-var staby_ammo = 0
-var staby_baseammo = 1
-var staby_attackspeed = 5
-var staby_level = 1
+#iceSpear Nodes
+var iceSpear_ammo = 0
+var iceSpear_baseammo = 1
+var iceSpear_attackspeed = 5
+var iceSpear_level = 1
 
 #Letter Nodes
 var letter_ammo = 0
 var letter_baseammo = 3
 var letter_attackspeed = 3
-var letter_level = 1
+var letter_level = 0
 
 #Enemy Related
 var enemy_close = []
@@ -73,32 +73,35 @@ func movement():
 	move_and_slide()
 
 func attack():
-	if(staby_level > 0):
-		stabyTimer.wait_time = staby_attackspeed
-		if stabyTimer.is_stopped():
-			stabyTimer.start()
+	if(iceSpear_level > 0):
+		print("icepsear")
+		iceSpearTimer.wait_time = iceSpear_attackspeed
+		if iceSpearTimer.is_stopped():
+			iceSpearTimer.start()
 	if(letter_level > 0):
 		letterTimer.wait_time = letter_attackspeed
 		if letterTimer.is_stopped():
 			letterTimer.start()
 
 
-func _on_staby_timer_timeout():
-	staby_ammo += staby_baseammo
-	stabyAttackTimer.start()
+func _on_iceSpear_timer_timeout():
+	iceSpear_ammo += iceSpear_baseammo
+	iceSpearAttackTimer.start()
+	print("icepsear2")
 
-func _on_staby_attack_timer_timeout():
-	if staby_ammo > 0:
-		var staby_attack = staby.instantiate()
-		staby_attack.position = position
-		staby_attack.target = get_random_target()
-		staby_attack.level = staby_level
-		add_child(staby_attack)
-		staby_ammo -= 1
-		if staby_ammo > 0:
-			stabyAttackTimer.start()
+func _on_iceSpear_attack_timer_timeout():
+	if iceSpear_ammo > 0:
+		print("icepsear3")
+		var iceSpear_attack = iceSpear.instantiate()
+		iceSpear_attack.position = position
+		iceSpear_attack.target = get_random_target()
+		iceSpear_attack.level = iceSpear_level
+		add_child(iceSpear_attack)
+		iceSpear_ammo -= 1
+		if iceSpear_ammo > 0:
+			iceSpearAttackTimer.start()
 		else:
-			stabyAttackTimer.stop()
+			iceSpearAttackTimer.stop()
 
 
 func _on_letter_timer_timeout() -> void:
