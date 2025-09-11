@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://2xuoik3yu85u"]
+[gd_scene load_steps=12 format=3 uid="uid://2xuoik3yu85u"]
 
 [ext_resource type="Script" uid="uid://c853uu0lk0y2t" path="res://Scripts/Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://r83lmhtr77hc" path="res://Assets/Sprites/Player/player_sprite.png" id="1_l8h54"]
 [ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="3_o22ie"]
 [ext_resource type="Texture2D" uid="uid://b20o3cpcpr1hb" path="res://Assets/GUI/exp_background.png" id="4_wery2"]
 [ext_resource type="Texture2D" uid="uid://b6sa1hlvf4xfc" path="res://Assets/GUI/exp_progress.png" id="5_e6m8t"]
+[ext_resource type="AudioStream" uid="uid://cmvrwwtvrfhog" path="res://Assets/SFX/enemy_death.ogg" id="6_e6m8t"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k45qg"]
 radius = 8.0
@@ -97,8 +98,8 @@ shape = SubResource("CircleShape2D_7cae0")
 [node name="GUI" type="Control" parent="GUILayer"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 640.0
-offset_bottom = 360.0
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="ExperienceBar" type="TextureProgressBar" parent="GUILayer/GUI"]
 unique_name_in_owner = true
@@ -112,11 +113,56 @@ texture_progress = ExtResource("5_e6m8t")
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 540.0
+offset_top = -2.0
 offset_right = 640.0
-offset_bottom = 23.0
+offset_bottom = 21.0
 text = "Level: 1"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="LevelUp" type="Panel" parent="GUILayer"]
+unique_name_in_owner = true
+process_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 760.0
+offset_top = -210.0
+offset_right = 1160.0
+offset_bottom = 290.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="lbl_level" type="Label" parent="GUILayer/LevelUp"]
+layout_mode = 1
+offset_right = 400.0
+offset_bottom = 105.0
+text = "LEVEL UP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeOptions" type="VBoxContainer" parent="GUILayer/LevelUp"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -100.0
+offset_right = 175.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="snd_level" type="AudioStreamPlayer2D" parent="GUILayer/LevelUp"]
+unique_name_in_owner = true
+stream = ExtResource("6_e6m8t")
+pitch_scale = 4.0
 
 [connection signal="timeout" from="Attacks/StabyTimer" to="." method="_on_staby_timer_timeout"]
 [connection signal="timeout" from="Attacks/StabyTimer/StabyAttackTimer" to="." method="_on_staby_attack_timer_timeout"]

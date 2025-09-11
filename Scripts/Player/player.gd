@@ -39,10 +39,14 @@ var enemy_close = []
 #GUI
 @onready var expBar = get_node("%ExperienceBar")
 @onready var lblLevel = get_node("%lbl_level")
+@onready var levelPanel: Panel = %LevelUp
+@onready var upgradeOptions: VBoxContainer = %UpgradeOptions
+@onready var snd_level: AudioStreamPlayer2D = %snd_level
+@onready var itemOptions = preload("res://Scenes/Prefabs/Utility/item_options.tscn")
 
 func _ready():
 	attack()
-	set_expBar(experience, calculate_expriencecap())
+	set_expBar(experience, calculate_experiencecap())
 
 func _physics_process(_delta: float) -> void:
 	movement()
@@ -143,14 +147,14 @@ func _on_collect_area_area_entered(area: Area2D) -> void:
 		calculate_experience(gem_exp)
 
 func calculate_experience(gem_exp):
-	var exp_required = calculate_expriencecap()
+	var exp_required = calculate_experiencecap()
 	collected_experience += gem_exp
 	if experience + collected_experience >= exp_required:
 		collected_experience -= exp_required - experience
 		experience_level +=1
-		lblLevel.text = str("Level: ",experience_level)
 		experience = 0
-		exp_required = calculate_expriencecap()
+		exp_required = calculate_experiencecap()
+		level_up()
 		calculate_experience(0)
 	else:
 		experience += collected_experience
@@ -158,7 +162,7 @@ func calculate_experience(gem_exp):
 		
 	set_expBar(experience, exp_required)
 	
-func calculate_expriencecap():
+func calculate_experiencecap():
 	var exp_cap = experience_level
 	if experience_level < 20:
 		exp_cap = experience_level * 5
@@ -171,3 +175,28 @@ func calculate_expriencecap():
 func set_expBar(set_value = 1, set_max_value = 100):
 	expBar.value = set_value
 	expBar.max_value = set_max_value
+
+func level_up():
+	snd_level.play()
+	lblLevel.text = str("Level: ", experience_level)
+	var levelTween = levelPanel.create_tween().set_parallel(true)
+	levelTween.tween_property(levelPanel, "position", Vector2(440, 110.0), 0.2)
+	levelTween.play()
+	levelPanel.visible = true
+	var options = 0
+	var options_max = 3
+	while options < options_max:
+		var optionChoice = itemOptions.instantiate()
+		upgradeOptions.add_child(optionChoice)
+		options += 1
+	
+	get_tree().paused = true
+
+func upgrade_character(upgrade):
+	var option_children = upgradeOptions.get_children()
+	for i in option_children:
+		i.queue_free()
+	levelPanel.visible = false
+	levelPanel.position = Vector2(1400, 500)
+	get_tree().paused = false
+	calculate_experience(0)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bi3vk14agdyap"]
+[gd_scene load_steps=4 format=3 uid="uid://bi3vk14agdyap"]
 
 [ext_resource type="PackedScene" uid="uid://2xuoik3yu85u" path="res://Scenes/Prefabs/Player/player.tscn" id="1_ehvkl"]
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Utility/enemy_spawner.tscn" id="1_woslj"]
+[ext_resource type="PackedScene" uid="uid://qwcicut6l3mm" path="res://Scenes/Prefabs/Utility/enemy_spawner.tscn" id="1_woslj"]
+[ext_resource type="PackedScene" uid="uid://b31viodtbfo18" path="res://Scenes/Prefabs/Objects/experience.tscn" id="3_woslj"]
 
 [node name="World" type="Node2D"]
 
@@ -11,3 +12,7 @@
 position = Vector2(604, 338)
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
+
+[node name="Experience" parent="." instance=ExtResource("3_woslj")]
+position = Vector2(411, 345)
+experience = 10
