@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://2xuoik3yu85u"]
 
 [ext_resource type="Script" uid="uid://c853uu0lk0y2t" path="res://Scripts/Player/player.gd" id="1_4ntmi"]
-[ext_resource type="Texture2D" uid="uid://r83lmhtr77hc" path="res://Assets/Sprites/Player/player_sprite.png" id="1_l8h54"]
+[ext_resource type="Texture2D" uid="uid://cs2d27misya4m" path="res://Assets/Sprites/Player/foot_spritesheet.png" id="2_e6m8t"]
 [ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="3_o22ie"]
 [ext_resource type="Texture2D" uid="uid://b20o3cpcpr1hb" path="res://Assets/GUI/exp_background.png" id="4_wery2"]
 [ext_resource type="Texture2D" uid="uid://b6sa1hlvf4xfc" path="res://Assets/GUI/exp_progress.png" id="5_e6m8t"]
@@ -30,9 +30,11 @@ script = ExtResource("1_4ntmi")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-scale = Vector2(2, 2)
-texture = ExtResource("1_l8h54")
-hframes = 2
+position = Vector2(-18, -15)
+texture = ExtResource("2_e6m8t")
+hframes = 3
+vframes = 3
+frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, 7)

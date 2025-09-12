@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var knockback_recovery = 3.5
 @export var experience = 1
 var knockback = Vector2.ZERO
+var _id = 0
 
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group("player")
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
@@ -76,6 +77,8 @@ func death():
 	new_gem.global_position = global_position
 	new_gem.experience = experience
 	loot_base.call_deferred("add_child", new_gem)
+	
+	Client.enemy_death.emit(_id)
 	
 	queue_free()
 

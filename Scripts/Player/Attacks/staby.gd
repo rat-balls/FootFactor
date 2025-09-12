@@ -67,7 +67,6 @@ func add_paths():
 		target_array.append(new_path)
 		counter += 1
 		enable_attack(true)
-	print(target_array)
 	target = target_array[0]
 	process_path()
 
@@ -98,13 +97,11 @@ func enemy_hit(charge = 1):
 		queue_free()
 
 func _on_attack_timer_timeout() -> void:
-	print("attack_timer")
 	attack_timer.stop()
 	add_paths()
 
 #add tween to make it cabrer
 func _on_charge_timer_timeout() -> void:
-	print("charge_timer")
 	if target_array.size() > 0:
 		target_array.remove_at(0)
 		if target_array.size() > 0:
