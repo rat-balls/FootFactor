@@ -23,6 +23,15 @@ const staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn"
 @onready var staby_base: Node2D = get_node("%StabyBase")
 
 
+#UPGRADES
+var collected_upgrades = []
+var upgrade_options = []
+var armor = 0
+var speed = 0
+var spell_cooldow = 0
+var spell_size = 0
+var additional_attack = 0
+
 #iceSpear Nodes
 var iceSpear_ammo = 0
 var iceSpear_baseammo = 1
