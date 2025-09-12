@@ -75,4 +75,4 @@ func _process(_delta):
 		set_process(false) # Stop processing.
 
 func _on_enemy_death(id):
-	socket.send_text('{"event":"MONSTER_KILL","data":{"mobInstanceId":"' + id + '"}}')
+	socket.send_text('{"event":"MONSTER_KILL","data":{"mobInstanceId":"' + str(id) + '"}}')
