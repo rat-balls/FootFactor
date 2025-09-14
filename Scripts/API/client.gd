@@ -21,7 +21,7 @@ signal enemy_death(type, id)
 var socket = WebSocketPeer.new()
 
 func _ready():
-	websocket_url += config.get_value("CLIENT", "token") if config.get_value("CLIENT", "token") else ""
+	websocket_url += config.get_value("CLIENT", "token", "")
 	# Initiate connection to the given URL.
 	var err = socket.connect_to_url(websocket_url)
 	if err != OK:
