@@ -115,22 +115,44 @@ offset_bottom = 720.0
 
 [node name="ExperienceBar" type="TextureProgressBar" parent="GUILayer/GUI"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+offset_left = -2.0
+offset_right = 638.0
+offset_bottom = 20.0
+scale = Vector2(2.006, 1)
 texture_under = ExtResource("4_wery2")
 texture_progress = ExtResource("5_e6m8t")
 
 [node name="lbl_level" type="Label" parent="GUILayer/GUI/ExperienceBar"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 540.0
-offset_top = -2.0
-offset_right = 640.0
-offset_bottom = 21.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -12.0
+offset_bottom = 11.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.5, 1)
 text = "Level: 1"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="lblTimer" type="Label" parent="GUILayer/GUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_top = 25.0
+offset_right = 20.5
+offset_bottom = 48.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
+text = "00:00"
 
 [node name="HealthBar" type="TextureProgressBar" parent="GUILayer"]
 unique_name_in_owner = true
