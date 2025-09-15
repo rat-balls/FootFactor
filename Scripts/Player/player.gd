@@ -6,6 +6,8 @@ var hp = 80
 var maxhp = 80
 var last_movement = Vector2.UP
 
+var time = 0
+
 var experience = 0 
 var experience_level = 1 
 var collected_experience = 0
@@ -64,6 +66,10 @@ var mov: Vector2 = Vector2.ZERO
 @onready var snd_level: AudioStreamPlayer2D = %snd_level
 @onready var itemOptions = preload("res://Scenes/Prefabs/Utility/item_options.tscn")
 @onready var health_bar = %HealthBar
+@onready var lbl_timer = $GUILayer/GUI/lblTimer
+@onready var collected_weapons = $GUILayer/GUI/CollectedWeapons
+@onready var collected_skills = $GUILayer/GUI/CollectedSkills
+@onready var item_container: Resource = preload("res://Scenes/Prefabs/Utility/item_container.tscn")
 
 func _ready():
 	set_expBar(experience, calculate_experiencecap())
@@ -240,7 +246,6 @@ func level_up():
 	get_tree().paused = true
 
 func upgrade_character(upgrade):
-	print(upgrade)
 	match upgrade:
 		"letter_opener1":
 			letterOpener_level = 1
@@ -289,6 +294,7 @@ func upgrade_character(upgrade):
 		"food":
 			hp += 20
 			hp = clamp(hp,0,maxhp)
+	adjust_ui_collection(upgrade)
 	attack()
 	health_bar.visible = true
 	
@@ -344,3 +350,30 @@ func get_random_item():
 		return randomitem
 	else:
 		return null
+
+func change_time(argtime = 0):
+	time = argtime
+	var get_minutes = int(time/60)
+	var get_seconds = time % 60
+	if get_minutes < 10:
+		get_minutes = str(0, get_minutes)
+	if get_seconds < 10:
+		get_seconds = str(0, get_seconds)
+	lbl_timer.text = str(get_minutes, ":", get_seconds)
+
+func adjust_ui_collection(upgrade):
+	var get_upgraded_displayname = UpgradeDb.UPGRADES[upgrade]["displayname"]
+	var get_type = UpgradeDb.UPGRADES[upgrade]["type"]
+	if(get_type != "item"):
+		var get_collected_display_names = []
+		for i in collected_upgrades:
+			get_collected_display_names.append(UpgradeDb.UPGRADES[i]["displayname"])
+		if not get_upgraded_displayname in get_collected_display_names:
+			var new_item_container = item_container.instantiate()
+			new_item_container.upgrade = upgrade
+			match get_type:
+				"weapon":
+					collected_weapons.add_child(new_item_container) 
+				"upgrade":
+					collected_skills.add_child(new_item_container) 
+			

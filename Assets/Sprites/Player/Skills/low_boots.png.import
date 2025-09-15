@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m1dc46u28w1k"
-path="res://.godot/imported/healthbar.png-4cf9f5dac23dcf8ccc54e32085242898.ctex"
+uid="uid://dhwjqmiafvprp"
+path="res://.godot/imported/low_boots.png-7b7382a1a69c4a1d4ed82b30688afbb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Player/healthbar.png"
-dest_files=["res://.godot/imported/healthbar.png-4cf9f5dac23dcf8ccc54e32085242898.ctex"]
+source_file="res://Assets/Sprites/Player/Skills/low_boots.png"
+dest_files=["res://.godot/imported/low_boots.png-7b7382a1a69c4a1d4ed82b30688afbb0.ctex"]
 
 [params]
 

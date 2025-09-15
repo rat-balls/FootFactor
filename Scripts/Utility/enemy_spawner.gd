@@ -7,8 +7,11 @@ const FISH_ENEMY = preload("res://Scenes/Prefabs/Enemy/fish_enemy.tscn")
 
 var time = 0
 
+signal changetime(time: int)
+
 func _ready() -> void:
 	Client.enemy_received.connect(_on_mob_spawn)
+	changetime.connect(player.change_time)
 
 func _process(_delta) -> void:
 	if(Input.is_action_just_pressed("test_Spider")):
@@ -32,6 +35,7 @@ func _on_timer_timeout():
 					enemy_spawn.global_position = get_random_position()
 					add_child(enemy_spawn)
 					counter += 1
+	emit_signal("changetime", time)
 
 func get_random_position(): 
 	var vpr = get_viewport_rect().size * randf_range(1.1, 1.4)

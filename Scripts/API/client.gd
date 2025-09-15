@@ -51,7 +51,6 @@ func _process(_delta):
 			#print("Got data from server: ", socket.get_packet().get_string_from_utf8())
 			var json = JSON.new()
 			var error = json.parse(socket.get_packet().get_string_from_utf8())
-			print("packet: ", socket.get_packet().get_string_from_utf8())
 			if error == OK:
 				var data_received = json.data
 				if(data_received["event"] == "MONSTER_SPAWN"):
