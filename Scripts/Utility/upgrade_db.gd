@@ -1,8 +1,8 @@
 extends Node
 
 
-const ICON_PATH = "res://Textures/Items/Upgrades/"
-const WEAPON_PATH = "res://Sprites/Player/Attacks/"
+const ICON_PATH = "res://Assets/Sprites/Player/Skills/"
+const WEAPON_PATH = "res://Assets/Sprites/Player/Attacks/"
 const UPGRADES = {
 	"letter_opener1": {
 		"icon": WEAPON_PATH + "ouvre_lettre.png",

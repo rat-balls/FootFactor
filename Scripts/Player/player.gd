@@ -16,8 +16,8 @@ const letter: Resource = preload("res://Scenes/Prefabs/Player/Attacks/letter.tsc
 const staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn")
 
 #Attack Nodes
-@onready var letterOpenerTimer: Timer = get_node("%IceSpearTimer")
-@onready var letterOpenerAttackTimer: Timer =  letterOpenerTimer.get_node("%IceSpearAttackTimer")
+@onready var letterOpenerTimer: Timer = get_node("%LetterOpenerTimer")
+@onready var letterOpenerAttackTimer: Timer =  letterOpenerTimer.get_node("%LetterOpenerAttackTimer")
 @onready var letterTimer: Timer = get_node("%LetterTimer")
 @onready var letterAttackTimer: Timer =  letterOpenerTimer.get_node("%LetterAttackTimer")
 @onready var staby_base: Node2D = get_node("%StabyBase")
@@ -28,7 +28,7 @@ var collected_upgrades = []
 var upgrade_options = []
 var armor = 0
 var speed = 0
-var spell_cooldow = 0
+var spell_cooldown = 0
 var spell_size = 0
 var additional_attack = 0
 
@@ -102,14 +102,12 @@ func movement():
 	move_and_slide()
 
 func attack():
-	print("attack levels:")
-	print(letterOpener_level, letter_level, staby_level)
 	if(letterOpener_level > 0):
-		letterOpenerTimer.wait_time = letterOpener_attackspeed * (1 - spell_cooldow)
+		letterOpenerTimer.wait_time = letterOpener_attackspeed * (1 - spell_cooldown)
 		if letterOpenerTimer.is_stopped():
 			letterOpenerTimer.start()
 	if(letter_level > 0):
-		letterTimer.wait_time = letter_attackspeed * (1 - spell_cooldow)
+		letterTimer.wait_time = letter_attackspeed * (1 - spell_cooldown)
 		if letterTimer.is_stopped():
 			letterTimer.start()
 	if staby_level > 0:
@@ -117,10 +115,12 @@ func attack():
 
 
 func _on_letterOpener_timer_timeout():
+	print("letterOpener2")
 	letterOpener_ammo += letterOpener_baseammo + additional_attack
 	letterOpenerAttackTimer.start()
 
 func _on_letterOpener_attack_timer_timeout():
+	print("letterOpener")
 	if letterOpener_ammo > 0:
 		var letterOpener_attack = letterOpener.instantiate()
 		letterOpener_attack.position = position
@@ -191,7 +191,7 @@ func calculate_experience(gem_exp):
 	collected_experience += gem_exp
 	if experience + collected_experience >= exp_required:
 		collected_experience -= exp_required - experience
-		experience_level +=1
+		experience_level += 1
 		experience = 0
 		exp_required = calculate_experiencecap()
 		level_up()
@@ -275,7 +275,7 @@ func upgrade_character(upgrade):
 		"tome1","tome2","tome3","tome4":
 			spell_size += 0.10
 		"scroll1","scroll2","scroll3","scroll4":
-			spell_cooldow += 0.05
+			spell_cooldown += 0.05
 		"ring1","ring2":
 			additional_attack += 1
 		"food":
@@ -295,26 +295,43 @@ func upgrade_character(upgrade):
 
 func get_random_item():
 	var dbList = []
-	for i in UpgradeDb.UPGRADES:
-		if i in collected_upgrades: 
-			pass
-		elif i in upgrade_options:
-			pass
-		elif UpgradeDb.UPGRADES[i]["type"] == "item":
-			pass
-		elif UpgradeDb.UPGRADES[i]["prerequisite"].size() > 0:
-			var to_add = true
-			for n in UpgradeDb.UPGRADES[i]["prerequisite"]:
-				if not n in collected_upgrades:
-					to_add = false
-			if to_add:
+	if(experience_level == 2):
+		for i in UpgradeDb.UPGRADES:
+			if i in collected_upgrades: 
+				pass
+			elif i in upgrade_options:
+				pass
+			elif UpgradeDb.UPGRADES[i]["type"] == "item":
+				pass
+			elif UpgradeDb.UPGRADES[i]["prerequisite"].size() > 0 and UpgradeDb.UPGRADES[i]["type"] == "weapon":
+				var to_add = true
+				for n in UpgradeDb.UPGRADES[i]["prerequisite"]:
+					if not n in collected_upgrades:
+						to_add = false
+				if to_add:
+					dbList.append(i)
+			elif UpgradeDb.UPGRADES[i]["type"] == "weapon":
 				dbList.append(i)
-		else:
-			dbList.append(i)
+	else:
+		for i in UpgradeDb.UPGRADES:
+			if i in collected_upgrades: 
+				pass
+			elif i in upgrade_options:
+				pass
+			elif UpgradeDb.UPGRADES[i]["type"] == "item":
+				pass
+			elif UpgradeDb.UPGRADES[i]["prerequisite"].size() > 0:
+				var to_add = true
+				for n in UpgradeDb.UPGRADES[i]["prerequisite"]:
+					if not n in collected_upgrades:
+						to_add = false
+				if to_add:
+					dbList.append(i)
+			else:
+				dbList.append(i)
 	if dbList.size() > 0:
 		var randomitem = dbList.pick_random()
 		upgrade_options.append(randomitem)
 		return randomitem
 	else:
 		return null
-			
