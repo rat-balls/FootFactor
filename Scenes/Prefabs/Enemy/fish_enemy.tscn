@@ -54,8 +54,6 @@ texture = ExtResource("2_xrxy6")
 hframes = 3
 vframes = 3
 
-[node name="enemy" type="RigidBody2D" parent="Sprite2D"]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -2)
 shape = SubResource("CapsuleShape2D_022wn")
