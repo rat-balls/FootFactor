@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dceure5fgk5k"
-path="res://.godot/imported/ice_spear.png-dcf86c7c6728d1fbf9905cc5074b903f.ctex"
+uid="uid://bocg2swgnc1gs"
+path="res://.godot/imported/ouvre_lettre.png-d95acd32e9f1420be97fee80b4a665a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Player/Attacks/ice_spear.png"
-dest_files=["res://.godot/imported/ice_spear.png-dcf86c7c6728d1fbf9905cc5074b903f.ctex"]
+source_file="res://Assets/Sprites/Player/Attacks/ouvre_lettre.png"
+dest_files=["res://.godot/imported/ouvre_lettre.png-d95acd32e9f1420be97fee80b4a665a7.ctex"]
 
 [params]
 

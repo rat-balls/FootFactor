@@ -10,6 +10,12 @@ var time = 0
 func _ready() -> void:
 	Client.enemy_received.connect(_on_mob_spawn)
 
+func _process(_delta) -> void:
+	if(Input.is_action_just_pressed("test_Spider")):
+		_on_mob_spawn("spider", 0)
+	if(Input.is_action_just_pressed("test_Fish")):
+		_on_mob_spawn("fish", 0)
+	
 func _on_timer_timeout():
 	time += 1
 	var enemy_spawns = spawns
@@ -56,7 +62,7 @@ func get_random_position():
 	
 	return Vector2(x_spawn, y_spawn)
 
-func _on_mob_spawn(type, id):
+func _on_mob_spawn(type: String, id: int) -> void:
 	match type:
 		"fish":
 			var enemy_spawn: CharacterBody2D = FISH_ENEMY.instantiate()

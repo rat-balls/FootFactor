@@ -11,15 +11,15 @@ var experience_level = 1
 var collected_experience = 0
 
 #Attacks
-const iceSpear: Resource = preload("res://Scenes/Prefabs/Player/Attacks/iceSpear.tscn")
+const letterOpener: Resource = preload("res://Scenes/Prefabs/Player/Attacks/letterOpener.tscn")
 const letter: Resource = preload("res://Scenes/Prefabs/Player/Attacks/letter.tscn")
 const staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn")
 
 #Attack Nodes
-@onready var iceSpearTimer: Timer = get_node("%IceSpearTimer")
-@onready var iceSpearAttackTimer: Timer =  iceSpearTimer.get_node("%IceSpearAttackTimer")
+@onready var letterOpenerTimer: Timer = get_node("%IceSpearTimer")
+@onready var letterOpenerAttackTimer: Timer =  letterOpenerTimer.get_node("%IceSpearAttackTimer")
 @onready var letterTimer: Timer = get_node("%LetterTimer")
-@onready var letterAttackTimer: Timer =  iceSpearTimer.get_node("%LetterAttackTimer")
+@onready var letterAttackTimer: Timer =  letterOpenerTimer.get_node("%LetterAttackTimer")
 @onready var staby_base: Node2D = get_node("%StabyBase")
 
 
@@ -32,21 +32,21 @@ var spell_cooldow = 0
 var spell_size = 0
 var additional_attack = 0
 
-#iceSpear Nodes
-var iceSpear_ammo = 0
-var iceSpear_baseammo = 1
-var iceSpear_attackspeed = 5
-var iceSpear_level = 1
+#letterOpener Nodes
+var letterOpener_ammo = 0
+var letterOpener_baseammo = 1
+var letterOpener_attackspeed = 5
+var letterOpener_level = 0
 
 #Letter Nodes
 var letter_ammo = 0
 var letter_baseammo = 3
 var letter_attackspeed = 3
-var letter_level = 1
+var letter_level = 0
 
 #Staby
 var staby_ammo = 3
-var staby_level = 1
+var staby_level = 0
 
 #Enemy Related
 var enemy_close = []
@@ -63,8 +63,6 @@ var enemy_close = []
 @onready var itemOptions = preload("res://Scenes/Prefabs/Utility/item_options.tscn")
 
 func _ready():
-	upgrade_character("icespear1")
-	attack()
 	set_expBar(experience, calculate_experiencecap())
 
 func _physics_process(_delta: float) -> void:
@@ -104,10 +102,12 @@ func movement():
 	move_and_slide()
 
 func attack():
-	if(iceSpear_level > 0):
-		iceSpearTimer.wait_time = iceSpear_attackspeed * (1 - spell_cooldow)
-		if iceSpearTimer.is_stopped():
-			iceSpearTimer.start()
+	print("attack levels:")
+	print(letterOpener_level, letter_level, staby_level)
+	if(letterOpener_level > 0):
+		letterOpenerTimer.wait_time = letterOpener_attackspeed * (1 - spell_cooldow)
+		if letterOpenerTimer.is_stopped():
+			letterOpenerTimer.start()
 	if(letter_level > 0):
 		letterTimer.wait_time = letter_attackspeed * (1 - spell_cooldow)
 		if letterTimer.is_stopped():
@@ -116,22 +116,22 @@ func attack():
 		spawn_staby()
 
 
-func _on_iceSpear_timer_timeout():
-	iceSpear_ammo += iceSpear_baseammo + additional_attack
-	iceSpearAttackTimer.start()
+func _on_letterOpener_timer_timeout():
+	letterOpener_ammo += letterOpener_baseammo + additional_attack
+	letterOpenerAttackTimer.start()
 
-func _on_iceSpear_attack_timer_timeout():
-	if iceSpear_ammo > 0:
-		var iceSpear_attack = iceSpear.instantiate()
-		iceSpear_attack.position = position
-		iceSpear_attack.target = get_random_target()
-		iceSpear_attack.level = iceSpear_level
-		add_child(iceSpear_attack)
-		iceSpear_ammo -= 1
-		if iceSpear_ammo > 0:
-			iceSpearAttackTimer.start()
+func _on_letterOpener_attack_timer_timeout():
+	if letterOpener_ammo > 0:
+		var letterOpener_attack = letterOpener.instantiate()
+		letterOpener_attack.position = position
+		letterOpener_attack.target = get_random_target()
+		letterOpener_attack.level = letterOpener_level
+		add_child(letterOpener_attack)
+		letterOpener_ammo -= 1
+		if letterOpener_ammo > 0:
+			letterOpenerAttackTimer.start()
 		else:
-			iceSpearAttackTimer.stop()
+			letterOpenerAttackTimer.stop()
 
 
 func _on_letter_timer_timeout() -> void:
@@ -152,16 +152,12 @@ func _on_letter_attack_timer_timeout() -> void:
 			letterAttackTimer.stop()
 
 func spawn_staby():
-	var staby_spawn = staby.instantiate()
-	staby_spawn.global_position = global_position
-	staby_base.add_child(staby_spawn)
-	
-	#update staby
 	var get_stabies = staby_base.get_children()
-	for i in get_stabies:
-		if i.has_method("update_staby"):
-			i.update_staby()
-	
+	if not get_stabies.size() > 0:
+		var staby_spawn = staby.instantiate()
+		staby_spawn.global_position = global_position
+		staby_base.add_child(staby_spawn)
+		staby_spawn.update_staby()
 
 func get_random_target():
 	if enemy_close.size() > 0:
@@ -238,18 +234,19 @@ func level_up():
 	get_tree().paused = true
 
 func upgrade_character(upgrade):
+	print(upgrade)
 	match upgrade:
-		"icespear1":
-			iceSpear_level = 1
-			iceSpear_baseammo += 1
-		"icespear2":
-			iceSpear_level = 2
-			iceSpear_baseammo += 1
-		"icespear3":
-			iceSpear_level = 3
-		"icespear4":
-			iceSpear_level = 4
-			iceSpear_baseammo += 2
+		"letter_opener1":
+			letterOpener_level = 1
+			letterOpener_baseammo += 1
+		"letter_opener2":
+			letterOpener_level = 2
+			letterOpener_baseammo += 1
+		"letter_opener3":
+			letterOpener_level = 3
+		"letter_opener4":
+			letterOpener_level = 4
+			letterOpener_baseammo += 2
 		"letter1":
 			letter_level = 1
 			letter_baseammo += 1

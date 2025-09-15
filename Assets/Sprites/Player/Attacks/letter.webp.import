@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dk31qj6w6tqnp"
-path="res://.godot/imported/open-old-envelope-and-protruding-letter-generative-ai-free-png.webp-7870b7c89608126ef3ba7f912d5e17db.ctex"
+path="res://.godot/imported/letter.webp-7d15fff2ad411645d15a607bbe966437.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Player/Attacks/open-old-envelope-and-protruding-letter-generative-ai-free-png.webp"
-dest_files=["res://.godot/imported/open-old-envelope-and-protruding-letter-generative-ai-free-png.webp-7870b7c89608126ef3ba7f912d5e17db.ctex"]
+source_file="res://Assets/Sprites/Player/Attacks/letter.webp"
+dest_files=["res://.godot/imported/letter.webp-7d15fff2ad411645d15a607bbe966437.ctex"]
 
 [params]
 
