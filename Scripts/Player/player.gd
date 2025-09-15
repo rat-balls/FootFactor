@@ -34,22 +34,24 @@ var additional_attack = 0
 
 #letterOpener Nodes
 var letterOpener_ammo = 0
-var letterOpener_baseammo = 1
-var letterOpener_attackspeed = 5
+var letterOpener_baseammo = 0
+var letterOpener_attackspeed = 0
 var letterOpener_level = 0
 
 #Letter Nodes
 var letter_ammo = 0
-var letter_baseammo = 3
-var letter_attackspeed = 3
+var letter_baseammo = 0
+var letter_attackspeed = 0
 var letter_level = 0
 
 #Staby
-var staby_ammo = 3
+var staby_ammo = 0
 var staby_level = 0
 
 #Enemy Related
 var enemy_close = []
+
+var mov: Vector2 = Vector2.ZERO
 
 @onready var sprite = $Sprite2D
 @onready var walkTimer = get_node("%walkTimer")
@@ -61,9 +63,11 @@ var enemy_close = []
 @onready var upgradeOptions: VBoxContainer = %UpgradeOptions
 @onready var snd_level: AudioStreamPlayer2D = %snd_level
 @onready var itemOptions = preload("res://Scenes/Prefabs/Utility/item_options.tscn")
+@onready var health_bar = %HealthBar
 
 func _ready():
 	set_expBar(experience, calculate_experiencecap())
+	_on_hurt_box_hurt(0, 0, 0)
 
 func _physics_process(_delta: float) -> void:
 	movement()
@@ -71,7 +75,7 @@ func _physics_process(_delta: float) -> void:
 func movement():
 	var x_mov = Input.get_action_strength("Right") - Input.get_action_strength("Left")
 	var y_mov = Input.get_action_strength("Down") - Input.get_action_strength("Up")
-	var mov = Vector2(x_mov, y_mov)
+	mov = Vector2(x_mov, y_mov)
 	
 	match mov:
 		Vector2(-1, 1):
@@ -175,7 +179,8 @@ func _on_enemy_detection_area_body_exited(body):
 
 func _on_hurt_box_hurt(damage: Variant, _angle, _knockback) -> void:
 	hp -= clamp(damage - armor, 1.0, 999.0)
-
+	health_bar.max_value = maxhp
+	health_bar.value = hp
 
 func _on_grab_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("loot"):
@@ -217,6 +222,7 @@ func set_expBar(set_value = 1, set_max_value = 100):
 	expBar.max_value = set_max_value
 
 func level_up():
+	health_bar.visible = false
 	snd_level.play()
 	lblLevel.text = str("Level: ", experience_level)
 	var levelTween = levelPanel.create_tween().set_parallel(true)
@@ -249,25 +255,27 @@ func upgrade_character(upgrade):
 			letterOpener_baseammo += 2
 		"letter1":
 			letter_level = 1
-			letter_baseammo += 1
+			letter_baseammo += 2
 		"letter2":
 			letter_level = 2
-			letter_baseammo += 1
+			letter_baseammo += 2
 		"letter3":
 			letter_level = 3
 			letter_attackspeed -= 0.5
 		"letter4":
 			letter_level = 4
-			letter_baseammo += 1
+			letter_baseammo += 2
 		"staby1":
 			staby_level = 1
-			staby_ammo = 1
+			staby_ammo += 1
 		"staby2":
 			staby_level = 2
+			staby_ammo += 1
 		"staby3":
 			staby_level = 3
 		"staby4":
 			staby_level = 4
+			staby_ammo += 1
 		"armor1","armor2","armor3","armor4":
 			armor += 1
 		"speed1","speed2","speed3","speed4":
@@ -282,6 +290,7 @@ func upgrade_character(upgrade):
 			hp += 20
 			hp = clamp(hp,0,maxhp)
 	attack()
+	health_bar.visible = true
 	
 	var option_children = upgradeOptions.get_children()
 	for i in option_children:

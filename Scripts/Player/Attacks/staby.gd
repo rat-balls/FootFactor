@@ -62,7 +62,7 @@ func add_paths():
 	emit_signal("remove_from_array", self)
 	target_array.clear()
 	var counter = 0
-	while counter < player.staby_ammo:
+	while counter < player.staby_ammo + player.additional_attack:
 		var new_path = player.get_random_target()
 		target_array.append(new_path)
 		counter += 1

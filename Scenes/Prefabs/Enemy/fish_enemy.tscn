@@ -42,7 +42,7 @@ size = Vector2(63, 63)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5slor"]
 size = Vector2(30.75, 55)
 
-[node name="fish_enemy" type="CharacterBody2D"]
+[node name="fish_enemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_na7l1")
@@ -53,6 +53,8 @@ y_sort_enabled = true
 texture = ExtResource("2_xrxy6")
 hframes = 3
 vframes = 3
+
+[node name="enemy" type="RigidBody2D" parent="Sprite2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -2)
@@ -86,6 +88,7 @@ shape = SubResource("RectangleShape2D_5slor")
 stream = ExtResource("5_rcya7")
 volume_db = -20.0
 
+[connection signal="area_exited" from="HurtBox" to="HurtBox" method="_on_area_exited"]
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 
 [editable path="HurtBox"]

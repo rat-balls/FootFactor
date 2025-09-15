@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://2xuoik3yu85u"]
+[gd_scene load_steps=14 format=3 uid="uid://2xuoik3yu85u"]
 
 [ext_resource type="Script" uid="uid://c853uu0lk0y2t" path="res://Scripts/Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://cs2d27misya4m" path="res://Assets/Sprites/Player/foot_spritesheet.png" id="2_e6m8t"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://b20o3cpcpr1hb" path="res://Assets/GUI/exp_background.png" id="4_wery2"]
 [ext_resource type="Texture2D" uid="uid://b6sa1hlvf4xfc" path="res://Assets/GUI/exp_progress.png" id="5_e6m8t"]
 [ext_resource type="AudioStream" uid="uid://cmvrwwtvrfhog" path="res://Assets/SFX/enemy_death.ogg" id="6_e6m8t"]
+[ext_resource type="Texture2D" uid="uid://m1dc46u28w1k" path="res://Assets/Sprites/Player/healthbar.png" id="7_e3lwr"]
+[ext_resource type="Texture2D" uid="uid://jabw3th87wqd" path="res://Assets/Sprites/Player/health.png" id="8_tr6l7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k45qg"]
 radius = 8.0
@@ -25,6 +27,7 @@ radius = 20.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
+floor_block_on_wall = false
 script = ExtResource("1_4ntmi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -41,6 +44,8 @@ position = Vector2(4, 7)
 shape = SubResource("CapsuleShape2D_k45qg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 15.0
 
 [node name="walkTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -127,6 +132,25 @@ text = "Level: 1"
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="HealthBar" type="TextureProgressBar" parent="GUILayer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.784314)
+z_index = 100
+anchors_preset = -1
+anchor_left = 0.46875
+anchor_top = 0.355556
+anchor_right = 0.53125
+anchor_bottom = 0.383333
+offset_right = -48.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.5, 2.5)
+value = 50.0
+texture_over = ExtResource("7_e3lwr")
+texture_progress = ExtResource("8_tr6l7")
+metadata/_edit_use_anchors_ = true
+
 [node name="LevelUp" type="Panel" parent="GUILayer"]
 unique_name_in_owner = true
 process_mode = 2
@@ -171,8 +195,8 @@ unique_name_in_owner = true
 stream = ExtResource("6_e6m8t")
 pitch_scale = 4.0
 
-[connection signal="timeout" from="Attacks/LetterOpenerTimer" to="." method="_on_iceSpear_timer_timeout"]
-[connection signal="timeout" from="Attacks/LetterOpenerTimer/LetterOpenerAttackTimer" to="." method="_on_iceSpear_attack_timer_timeout"]
+[connection signal="timeout" from="Attacks/LetterOpenerTimer" to="." method="_on_letterOpener_timer_timeout"]
+[connection signal="timeout" from="Attacks/LetterOpenerTimer/LetterOpenerAttackTimer" to="." method="_on_letterOpener_attack_timer_timeout"]
 [connection signal="timeout" from="Attacks/LetterTimer" to="." method="_on_letter_timer_timeout"]
 [connection signal="timeout" from="Attacks/LetterTimer/LetterAttackTimer" to="." method="_on_letter_attack_timer_timeout"]
 [connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
