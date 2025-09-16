@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b3l1y15hjbbp5"]
 
 [ext_resource type="FontFile" uid="uid://cce4fvd4s4hlw" path="res://Assets/Fonts/Merchant Copy.ttf" id="1_4kcm1"]
-[ext_resource type="Script" uid="uid://cin24tstrhneo" path="res://Scenes/TitleScreen/menu.gd" id="1_r2uo7"]
+[ext_resource type="Script" uid="uid://cin24tstrhneo" path="res://Scripts/TitleScreen/menu.gd" id="1_r2uo7"]
 [ext_resource type="Texture2D" uid="uid://dc3n6yqajtchk" path="res://Assets/Sprites/Enemies/macron.png" id="3_mbqol"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2mcwu"]

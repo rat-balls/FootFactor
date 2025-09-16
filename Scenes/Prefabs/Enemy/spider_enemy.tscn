@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cwlor0tmcrdn5"]
+[gd_scene load_steps=12 format=3 uid="uid://c6q7802vmo5m"]
 
 [ext_resource type="Script" uid="uid://bdyjkqxukym8t" path="res://Scripts/Enemy/enemy.gd" id="1_6cdpy"]
 [ext_resource type="Texture2D" uid="uid://cn2y8hn87aga" path="res://Assets/Sprites/Enemies/spider_monster.png" id="3_okl4l"]
