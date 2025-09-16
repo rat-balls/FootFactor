@@ -27,11 +27,14 @@ func _on_area_entered(area: Area2D) -> void:
 			var damage = area.damage
 			var angle = Vector2.ZERO
 			var knockback = 1
+			var slowing = false
 			if not area.get("angle") == null:
 				angle = area.angle
 			if not area.get("knockback_amount") == null:
 				knockback = area.knockback_amount
-			emit_signal("hurt", damage, angle, knockback)
+			if not area.get("slowing") == null:
+				slowing = area.slowing
+			emit_signal("hurt", damage, angle, knockback, slowing)
 			if area.has_method("enemy_hit"):
 				area.enemy_hit(1)
 

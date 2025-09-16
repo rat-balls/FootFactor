@@ -41,7 +41,7 @@ func _ready():
 			knockback_amount = 100
 			attack_size = 1.1 * (1 - player.spell_size)
 	var tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(1+attack_size,1+attack_size), 1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "scale", Vector2(1 + attack_size, 1 + attack_size), 1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 
 func _physics_process(delta):
 	position += angle * speed * delta

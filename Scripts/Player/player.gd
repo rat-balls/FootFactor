@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-
+var normal_movement_speed = 300.0
 var movement_speed = 300.0
 var hp = 80
 var maxhp = 80
@@ -75,7 +75,7 @@ var mov: Vector2 = Vector2.ZERO
 
 func _ready():
 	set_expBar(experience, calculate_experiencecap())
-	_on_hurt_box_hurt(0, 0, 0)
+	_on_hurt_box_hurt(0, 0, 0, false)
 
 func _physics_process(_delta: float) -> void:
 	movement()
@@ -183,16 +183,29 @@ func _on_enemy_detection_area_body_exited(body):
 	if enemy_close.has(body):
 		enemy_close.erase(body)
 
-func _on_hurt_box_hurt(damage: Variant, _angle, _knockback) -> void:
+func _on_hurt_box_hurt(damage: Variant, _angle, _knockback, slowing) -> void:
+	if slowing:
+		movement_speed -= movement_speed * 0.7
+		var slow_tween = create_tween()
+		slow_tween.tween_property(self, "movement_speed", normal_movement_speed, 1.5).set_ease(Tween.EASE_OUT)
+		slow_tween.play()
 	hp -= clamp(damage - armor, 1.0, 999.0)
 	health_bar.max_value = maxhp
 	health_bar.value = hp
 	if(damage != 0):
 		var flash_tween = sprite.create_tween()
-		flash_tween.tween_property(sprite, "modulate",  Color(2.5, 0.5, 0.5), 0.1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-		flash_tween.play()
-		flash_tween.tween_property(sprite, "modulate",  Color(1.0, 1.0, 1.0), 0.1)
-		flash_tween.play()
+		if slowing:
+			flash_tween.tween_property(sprite, "modulate",  Color(5, 2.5, 2.5), 0.1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+			flash_tween.play()
+			flash_tween.tween_property(sprite, "modulate",  Color(2.5, 2.5, 2.5), 0.1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+			flash_tween.play()
+			flash_tween.tween_property(sprite, "modulate",  Color(1.0, 1.0, 1.0), 1.3)
+			flash_tween.play()
+		else:
+			flash_tween.tween_property(sprite, "modulate",  Color(2.5, 0.5, 0.5), 0.1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+			flash_tween.play()
+			flash_tween.tween_property(sprite, "modulate",  Color(1.0, 1.0, 1.0), 0.1)
+			flash_tween.play()
 	if hp <= 0:
 		death()
 
@@ -311,6 +324,7 @@ func upgrade_character(upgrade):
 			armor += 1
 		"speed1","speed2","speed3","speed4":
 			movement_speed += 50.0
+			normal_movement_speed += 50.0
 		"tome1","tome2","tome3","tome4":
 			spell_size += 0.50
 		"scroll1","scroll2","scroll3","scroll4":

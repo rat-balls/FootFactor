@@ -16,6 +16,7 @@ const SPIDER_MONSTER = preload("res://Assets/Sprites/Enemies/spider_monster.png"
 const SPIDER_MONSTER_COBWEB = preload("res://Assets/Sprites/Enemies/spider_monster_cobweb.png")
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var attack_anim_timer: Timer = $AttackAnimTimer
+const WEBBALL = preload("res://Scenes/Prefabs/Enemy/webball.tscn")
 
 var death_anim: Resource = preload("res://Scenes/Prefabs/Enemy/explosion.tscn")
 
@@ -26,8 +27,9 @@ signal remove_from_array(object)
 var attacking = false;
 
 func _ready():
-	pass
-	#animation.play("walk")
+	hp += player.time * 0.1
+	cooldown_timer.start()
+
 
 func _physics_process(_delta: float) -> void:
 	if(attacking):
@@ -40,7 +42,8 @@ func _physics_process(_delta: float) -> void:
 	velocity = direction * movement_speed
 	velocity += knockback
 	if !attacking:
-		move_and_slide()
+		if global_position.distance_to(player.global_position) > 450:
+			move_and_slide()
 	
 	var right_big = direction.x > 0.5
 	var right_small = direction.x > 0.25
@@ -92,7 +95,7 @@ func death():
 	
 	queue_free()
 
-func _on_hurt_box_hurt(damage: Variant, angle, knockback_amount) -> void:
+func _on_hurt_box_hurt(damage: Variant, angle, knockback_amount, _slowing) -> void:
 	hp -= damage
 	knockback = angle * knockback_amount
 	if(damage != 0):
@@ -106,11 +109,19 @@ func _on_hurt_box_hurt(damage: Variant, angle, knockback_amount) -> void:
 	else:
 		sound_hit.play( )
 
+func send_ball():
+	var ball = WEBBALL.instantiate()
+	ball.position = position + velocity * 0.5
+	add_child(ball)
 
 func _on_cooldown_timer_timeout() -> void:
 	attacking = true
 	attack_anim_timer.start()
+	cooldown_timer.stop()
+
 
 func _on_attack_anim_timer_timeout() -> void:
 	attacking = false
 	cooldown_timer.start()
+	send_ball()
+	attack_anim_timer.stop()

@@ -21,7 +21,6 @@ signal remove_from_array(object)
 
 func _ready():
 	hp += player.time * 0.1
-	print(hp)
 
 func _physics_process(_delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
@@ -80,7 +79,7 @@ func death():
 	
 	queue_free()
 
-func _on_hurt_box_hurt(damage: Variant, angle, knockback_amount) -> void:
+func _on_hurt_box_hurt(damage: Variant, angle, knockback_amount, _slowing) -> void:
 	hp -= damage
 	knockback = angle * knockback_amount
 	if(damage != 0):
