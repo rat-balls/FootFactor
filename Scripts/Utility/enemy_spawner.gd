@@ -4,6 +4,7 @@ extends Node2D
 
 @onready var player = get_tree().get_first_node_in_group("player")
 const FISH_ENEMY = preload("res://Scenes/Prefabs/Enemy/fish_enemy.tscn")
+const SPIDER_ENEMY = preload("res://Scenes/Prefabs/Enemy/spider_enemy.tscn")
 
 var time = 0
 
@@ -84,7 +85,7 @@ func _on_mob_spawn(type: String, id: String) -> void:
 			enemy_spawn._id = id
 			add_child(enemy_spawn)
 		"spider":
-			var enemy_spawn: CharacterBody2D = FISH_ENEMY.instantiate()
+			var enemy_spawn: CharacterBody2D = SPIDER_ENEMY.instantiate()
 			enemy_spawn.global_position = get_random_position()
 			enemy_spawn._id = id
 			add_child(enemy_spawn)

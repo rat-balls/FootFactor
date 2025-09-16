@@ -37,13 +37,13 @@ var additional_attack = 0
 #letterOpener Nodes
 var letterOpener_ammo = 0
 var letterOpener_baseammo = 0
-var letterOpener_attackspeed = 0
+var letterOpener_attackspeed = 4
 var letterOpener_level = 0
 
 #Letter Nodes
 var letter_ammo = 0
 var letter_baseammo = 0
-var letter_attackspeed = 0
+var letter_attackspeed = 5
 var letter_level = 0
 
 #Staby
@@ -269,32 +269,32 @@ func upgrade_character(upgrade):
 	match upgrade:
 		"letter_opener1":
 			letterOpener_level = 1
-			letterOpener_attackspeed = 0.5
+			letterOpener_attackspeed -= 0.5
 			letterOpener_baseammo += 1
 		"letter_opener2":
 			letterOpener_level = 2
+			letterOpener_attackspeed -= 0.5
 			letterOpener_baseammo += 1
 		"letter_opener3":
 			letterOpener_level = 3
-			letterOpener_attackspeed = 1
+			letterOpener_attackspeed -= 1
 		"letter_opener4":
 			letterOpener_level = 4
-			letterOpener_attackspeed = 0.5
+			letterOpener_attackspeed -= 1
 			letterOpener_baseammo += 2
 		"letter1":
 			letter_level = 1
-			letter_attackspeed = 5
 			letter_baseammo += 2
 		"letter2":
 			letter_level = 2
-			letter_attackspeed = 4
+			letter_attackspeed -= 0.5
 			letter_baseammo += 2
 		"letter3":
 			letter_level = 3
-			letter_attackspeed -= 0.5
+			letter_attackspeed -= 1
 		"letter4":
 			letter_level = 4
-			letter_attackspeed = 3
+			letter_attackspeed -= 1
 			letter_baseammo += 2
 		"staby1":
 			staby_level = 1
