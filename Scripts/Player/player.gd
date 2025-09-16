@@ -37,7 +37,7 @@ var additional_attack = 0
 #letterOpener Nodes
 var letterOpener_ammo = 0
 var letterOpener_baseammo = 0
-var letterOpener_attackspeed = 4
+var letterOpener_attackspeed = 2
 var letterOpener_level = 0
 
 #Letter Nodes
@@ -273,11 +273,10 @@ func upgrade_character(upgrade):
 			letterOpener_baseammo += 1
 		"letter_opener2":
 			letterOpener_level = 2
-			letterOpener_attackspeed -= 0.5
 			letterOpener_baseammo += 1
 		"letter_opener3":
 			letterOpener_level = 3
-			letterOpener_attackspeed -= 1
+			letterOpener_attackspeed -= 0.5
 		"letter_opener4":
 			letterOpener_level = 4
 			letterOpener_attackspeed -= 1

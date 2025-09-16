@@ -20,8 +20,8 @@ var exp_gem = preload("res://Scenes/Prefabs/Objects/experience.tscn")
 signal remove_from_array(object)
 
 func _ready():
-	pass
-	#animation.play("walk")
+	hp += player.time * 0.1
+	print(hp)
 
 func _physics_process(_delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
