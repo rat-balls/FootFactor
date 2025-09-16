@@ -311,16 +311,18 @@ func upgrade_character(upgrade):
 		"armor1","armor2","armor3","armor4":
 			armor += 1
 		"speed1","speed2","speed3","speed4":
-			movement_speed += 20.0
+			movement_speed += 50.0
 		"tome1","tome2","tome3","tome4":
-			spell_size += 0.10
+			spell_size += 0.50
 		"scroll1","scroll2","scroll3","scroll4":
-			spell_cooldown += 0.05
+			spell_cooldown += 0.1
 		"ring1","ring2":
 			additional_attack += 1
 		"food":
 			hp += 20
-			hp = clamp(hp,0,maxhp)
+			hp = clamp(hp, 0, maxhp)
+			health_bar.max_value = maxhp
+			health_bar.value = hp
 	adjust_ui_collection(upgrade)
 	attack()
 	health_bar.visible = true
@@ -404,3 +406,8 @@ func adjust_ui_collection(upgrade):
 				"upgrade":
 					collected_skills.add_child(new_item_container) 
 			
+
+
+func _on_restart_button_button_up() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()

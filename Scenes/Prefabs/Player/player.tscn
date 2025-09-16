@@ -267,7 +267,7 @@ text = "RESULT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="GUILayer/DeathPanel"]
+[node name="RestartButton" type="Button" parent="GUILayer/DeathPanel"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 1
 anchors_preset = 7
@@ -300,5 +300,6 @@ shape = SubResource("CircleShape2D_eplfn")
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
+[connection signal="button_up" from="GUILayer/DeathPanel/RestartButton" to="." method="_on_restart_button_button_up"]
 
 [editable path="HurtBox"]
