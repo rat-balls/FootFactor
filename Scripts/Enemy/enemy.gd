@@ -83,6 +83,12 @@ func death():
 func _on_hurt_box_hurt(damage: Variant, angle, knockback_amount) -> void:
 	hp -= damage
 	knockback = angle * knockback_amount
+	if(damage != 0):
+		var flash_tween = sprite.create_tween()
+		flash_tween.tween_property(sprite, "modulate",  Color(80, 1.0, 1.0), 0.05).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		flash_tween.play()
+		flash_tween.tween_property(sprite, "modulate",  Color(1.0, 1.0, 1.0), 0.05)
+		flash_tween.play()
 	if hp <= 0:
 		death()
 	else:
