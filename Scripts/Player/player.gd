@@ -187,6 +187,12 @@ func _on_hurt_box_hurt(damage: Variant, _angle, _knockback) -> void:
 	hp -= clamp(damage - armor, 1.0, 999.0)
 	health_bar.max_value = maxhp
 	health_bar.value = hp
+	if(damage != 0):
+		var flash_tween = sprite.create_tween()
+		flash_tween.tween_property(sprite, "modulate",  Color(2.5, 0.5, 0.5), 0.1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		flash_tween.play()
+		flash_tween.tween_property(sprite, "modulate",  Color(1.0, 1.0, 1.0), 0.1)
+		flash_tween.play()
 	if hp <= 0:
 		death()
 
