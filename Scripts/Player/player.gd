@@ -115,10 +115,6 @@ func movement():
 
 func attack():
 	if(letterOpener_level > 0):
-		print( letterOpener_attackspeed )
-		print((1 - spell_cooldown))
-		print( letterOpener_attackspeed * (1 - spell_cooldown))
-
 		letterOpenerTimer.wait_time = letterOpener_attackspeed * (1 - spell_cooldown)
 		if letterOpenerTimer.is_stopped():
 			letterOpenerTimer.start()
@@ -131,12 +127,10 @@ func attack():
 
 
 func _on_letterOpener_timer_timeout():
-	print("letterOpener2")
 	letterOpener_ammo += letterOpener_baseammo + additional_attack
 	letterOpenerAttackTimer.start()
 
 func _on_letterOpener_attack_timer_timeout():
-	print("letterOpener")
 	if letterOpener_ammo > 0:
 		var letterOpener_attack = letterOpener.instantiate()
 		letterOpener_attack.position = position
