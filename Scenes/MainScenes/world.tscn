@@ -24,6 +24,7 @@ tile_size = Vector2i(46, 27)
 sources/1 = SubResource("TileSetAtlasSource_uww6s")
 
 [node name="World" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_bstb2")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -35,15 +36,15 @@ tile_map_data = PackedByteArray("AAAAAP7/AQABAAEAAAAAAP3/AQABAAEAAAABAP7/AQABAAE
 tile_set = SubResource("TileSet_87h1v")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("1_woslj")]
+y_sort_enabled = true
 spawns = Array[ExtResource("2_uww6s")]([])
 
 [node name="Player" parent="." instance=ExtResource("1_ehvkl")]
-z_index = -1
-y_sort_enabled = true
 position = Vector2(604, 338)
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
 [node name="Experience" parent="." instance=ExtResource("3_woslj")]
+z_index = 10
 position = Vector2(411, 345)
 experience = 10
