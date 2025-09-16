@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://c6q7802vmo5m"]
 
-[ext_resource type="Script" uid="uid://bn0frpi3v56m8" path="res://Scripts/Enemy/fish_enemy.gd" id="1_6cdpy"]
+[ext_resource type="Script" uid="uid://bsk4xoi5rfewl" path="res://Scripts/Enemy/spider_enemy.gd" id="1_6cdpy"]
 [ext_resource type="Texture2D" uid="uid://cn2y8hn87aga" path="res://Assets/Sprites/Enemies/spider_monster.png" id="3_okl4l"]
 [ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="3_v347b"]
 [ext_resource type="PackedScene" uid="uid://5ubgwi0xjbt2" path="res://Scenes/Prefabs/Utility/hit_box.tscn" id="4_okl4l"]
@@ -46,6 +46,8 @@ size = Vector2(30.75, 55)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_6cdpy")
+hp = 5
+knockback_recovery = 4.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -2)
@@ -86,8 +88,17 @@ shape = SubResource("RectangleShape2D_5slor")
 stream = ExtResource("5_n0k15")
 volume_db = -20.0
 
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
+[node name="AttackAnimTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="area_exited" from="HurtBox" to="HurtBox" method="_on_area_exited"]
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="AttackAnimTimer" to="." method="_on_attack_anim_timer_timeout"]
 
 [editable path="HurtBox"]
 [editable path="HitBox"]

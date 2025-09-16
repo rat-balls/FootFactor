@@ -12,6 +12,10 @@ var _id = 0
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var animation:AnimationPlayer = $AnimationPlayer
 @onready var sound_hit = $snd_hit
+const SPIDER_MONSTER = preload("res://Assets/Sprites/Enemies/spider_monster.png")
+const SPIDER_MONSTER_COBWEB = preload("res://Assets/Sprites/Enemies/spider_monster_cobweb.png")
+@onready var cooldown_timer: Timer = $CooldownTimer
+@onready var attack_anim_timer: Timer = $AttackAnimTimer
 
 var death_anim: Resource = preload("res://Scenes/Prefabs/Enemy/explosion.tscn")
 
@@ -19,16 +23,24 @@ var exp_gem = preload("res://Scenes/Prefabs/Objects/experience.tscn")
 
 signal remove_from_array(object)
 
+var attacking = false;
+
 func _ready():
 	pass
 	#animation.play("walk")
 
 func _physics_process(_delta: float) -> void:
+	if(attacking):
+		sprite.texture = SPIDER_MONSTER_COBWEB
+	else:
+		sprite.texture = SPIDER_MONSTER
+	
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	var direction = global_position.direction_to(player.global_position)
 	velocity = direction * movement_speed
 	velocity += knockback
-	move_and_slide()
+	if !attacking:
+		move_and_slide()
 	
 	var right_big = direction.x > 0.5
 	var right_small = direction.x > 0.25
@@ -93,3 +105,12 @@ func _on_hurt_box_hurt(damage: Variant, angle, knockback_amount) -> void:
 		death()
 	else:
 		sound_hit.play( )
+
+
+func _on_cooldown_timer_timeout() -> void:
+	attacking = true
+	attack_anim_timer.start()
+
+func _on_attack_anim_timer_timeout() -> void:
+	attacking = false
+	cooldown_timer.start()

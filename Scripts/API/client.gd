@@ -78,7 +78,8 @@ func _process(_delta):
 		set_process(false) # Stop processing.
 
 func _on_enemy_death(id):
-	socket.send_text('{"event":"MONSTER_KILL","data":{"mobInstanceId":"' + str(id) + '"}}')
+	if(id != "0"):
+		socket.send_text('{"event":"MONSTER_KILL","data":{"mobInstanceId":"' + str(id) + '"}}')
 
 func _on_new_run():
 	print("Restarting run")
