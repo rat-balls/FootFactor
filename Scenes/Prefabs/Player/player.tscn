@@ -40,6 +40,7 @@ vframes = 3
 frame = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -5
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(-8, -1)

@@ -194,7 +194,7 @@ func death():
 	death_panel.visible = true
 	get_tree().paused = true
 	var tween = death_panel.create_tween()
-	tween.tween_property(death_panel, "position", Vector2(440, 110.0), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(death_panel, "position", Vector2(440, 110.0), 1.5).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
 	if time >= 300:
 		lbl_result.text= "You win"
