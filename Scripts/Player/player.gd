@@ -70,6 +70,8 @@ var mov: Vector2 = Vector2.ZERO
 @onready var collected_weapons = $GUILayer/GUI/CollectedWeapons
 @onready var collected_skills = $GUILayer/GUI/CollectedSkills
 @onready var item_container: Resource = preload("res://Scenes/Prefabs/Utility/item_container.tscn")
+@onready var death_panel: Panel = %DeathPanel
+@onready var lbl_result: Label = %lbl_Result
 
 func _ready():
 	set_expBar(experience, calculate_experiencecap())
@@ -113,6 +115,10 @@ func movement():
 
 func attack():
 	if(letterOpener_level > 0):
+		print( letterOpener_attackspeed )
+		print((1 - spell_cooldown))
+		print( letterOpener_attackspeed * (1 - spell_cooldown))
+
 		letterOpenerTimer.wait_time = letterOpener_attackspeed * (1 - spell_cooldown)
 		if letterOpenerTimer.is_stopped():
 			letterOpenerTimer.start()
@@ -187,6 +193,20 @@ func _on_hurt_box_hurt(damage: Variant, _angle, _knockback) -> void:
 	hp -= clamp(damage - armor, 1.0, 999.0)
 	health_bar.max_value = maxhp
 	health_bar.value = hp
+	if hp <= 0:
+		death()
+
+func death():
+	death_panel.visible = true
+	get_tree().paused = true
+	var tween = death_panel.create_tween()
+	tween.tween_property(death_panel, "position", Vector2(440, 110.0), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.play()
+	if time >= 300:
+		lbl_result.text= "You win"
+	else:
+		lbl_result.text= "You are dead"
+	
 
 func _on_grab_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("loot"):
@@ -249,26 +269,32 @@ func upgrade_character(upgrade):
 	match upgrade:
 		"letter_opener1":
 			letterOpener_level = 1
+			letterOpener_attackspeed = 0.5
 			letterOpener_baseammo += 1
 		"letter_opener2":
 			letterOpener_level = 2
 			letterOpener_baseammo += 1
 		"letter_opener3":
 			letterOpener_level = 3
+			letterOpener_attackspeed = 1
 		"letter_opener4":
 			letterOpener_level = 4
+			letterOpener_attackspeed = 0.5
 			letterOpener_baseammo += 2
 		"letter1":
 			letter_level = 1
+			letter_attackspeed = 5
 			letter_baseammo += 2
 		"letter2":
 			letter_level = 2
+			letter_attackspeed = 4
 			letter_baseammo += 2
 		"letter3":
 			letter_level = 3
 			letter_attackspeed -= 0.5
 		"letter4":
 			letter_level = 4
+			letter_attackspeed = 3
 			letter_baseammo += 2
 		"staby1":
 			staby_level = 1
@@ -278,9 +304,10 @@ func upgrade_character(upgrade):
 			staby_ammo += 1
 		"staby3":
 			staby_level = 3
+			staby_ammo += 2
 		"staby4":
 			staby_level = 4
-			staby_ammo += 1
+			staby_ammo += 2
 		"armor1","armor2","armor3","armor4":
 			armor += 1
 		"speed1","speed2","speed3","speed4":

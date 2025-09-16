@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b53rpksg5yaao"]
 
-[ext_resource type="Script" path="res://Scripts/Player/Attacks/letter.gd" id="1_1pkjb"]
+[ext_resource type="Script" uid="uid://bfhpjaka0r2a" path="res://Scripts/Player/Attacks/letter.gd" id="1_1pkjb"]
 [ext_resource type="Texture2D" uid="uid://dk31qj6w6tqnp" path="res://Assets/Sprites/Player/Attacks/letter.webp" id="2_1pkjb"]
 [ext_resource type="AudioStream" uid="uid://x0nm6hkhee0o" path="res://Assets/SFX/Révolution Verte.mp3" id="3_tofrh"]
 

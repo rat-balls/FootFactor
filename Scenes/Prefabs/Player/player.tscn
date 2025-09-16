@@ -195,6 +195,7 @@ metadata/_edit_use_anchors_ = true
 [node name="LevelUp" type="Panel" parent="GUILayer"]
 unique_name_in_owner = true
 process_mode = 2
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -236,6 +237,49 @@ unique_name_in_owner = true
 process_mode = 3
 stream = ExtResource("6_e6m8t")
 pitch_scale = 4.0
+
+[node name="DeathPanel" type="Panel" parent="GUILayer"]
+unique_name_in_owner = true
+process_mode = 2
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -197.0
+offset_top = -559.0
+offset_right = 203.0
+offset_bottom = -59.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+
+[node name="lbl_Result" type="Label" parent="GUILayer/DeathPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = 400.0
+offset_bottom = 105.0
+text = "RESULT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="GUILayer/DeathPanel"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -76.0
+offset_top = -138.0
+offset_right = 74.0
+offset_bottom = -88.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "RESTART"
+
+[node name="snd_level" type="AudioStreamPlayer2D" parent="GUILayer/DeathPanel"]
+process_mode = 3
+stream = ExtResource("6_e6m8t")
+pitch_scale = 9.75
 
 [connection signal="timeout" from="Attacks/LetterOpenerTimer" to="." method="_on_letterOpener_timer_timeout"]
 [connection signal="timeout" from="Attacks/LetterOpenerTimer/LetterOpenerAttackTimer" to="." method="_on_letterOpener_attack_timer_timeout"]

@@ -33,9 +33,7 @@ func _physics_process(_delta: float) -> void:
 	var right_big = direction.x > 0.5
 	var right_small = direction.x > 0.25
 	var up_big = direction.y < -0.5
-	var up_small = direction.y < -0.25
 	var down_big = direction.y > 0.5
-	var down_small = direction.y > 0.25
 	var left_big = direction.x < -0.5
 	var left_small = direction.x < -0.25
 	

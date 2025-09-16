@@ -11,8 +11,8 @@ enum WebsocketEventC2SEnum {
 var config = ConfigFile.new()
 var env = config.load("res://env.cfg")
 
-signal enemy_received(type, id)
-signal enemy_death(type, id)
+signal enemy_received(type: String, id: String)
+signal enemy_death(type: String, id: String)
 
 # The URL we will connect to.
 @export var websocket_url = "wss://foot-factor.onrender.com/ws?token="
@@ -51,8 +51,10 @@ func _process(_delta):
 			#print("Got data from server: ", socket.get_packet().get_string_from_utf8())
 			var json = JSON.new()
 			var error = json.parse(socket.get_packet().get_string_from_utf8())
+			print(error)
 			if error == OK:
 				var data_received = json.data
+				print(str(data_received))
 				if(data_received["event"] == "MONSTER_SPAWN"):
 					var data = data_received["data"]
 					var mobType = data["mobType"]

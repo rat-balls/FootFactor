@@ -76,28 +76,28 @@ const UPGRADES = {
 		"prerequisite": [],
 		"type": "weapon"
 	},
-	"tornado2": {
+	"letter2": {
 		"icon": WEAPON_PATH + "letter.webp",
 		"displayname": "Lettre",
 		"details": "An additional Lettre is created",
 		"level": "Level: 2",
-		"prerequisite": ["tornado1"],
+		"prerequisite": ["letter1"],
 		"type": "weapon"
 	},
-	"tornado3": {
+	"letter3": {
 		"icon": WEAPON_PATH + "letter.webp",
 		"displayname": "Lettre",
 		"details": "The Lettre cooldown is reduced by 0.5 seconds",
 		"level": "Level: 3",
-		"prerequisite": ["tornado2"],
+		"prerequisite": ["letter2"],
 		"type": "weapon"
 	},
-	"tornado4": {
+	"letter4": {
 		"icon": WEAPON_PATH + "letter.webp",
 		"displayname": "Lettre",
 		"details": "An additional tornado is created and the knockback is increased by 25%",
 		"level": "Level: 4",
-		"prerequisite": ["tornado3"],
+		"prerequisite": ["letter3"],
 		"type": "weapon"
 	},
 	"armor1": {

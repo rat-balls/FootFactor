@@ -15,9 +15,9 @@ func _ready() -> void:
 
 func _process(_delta) -> void:
 	if(Input.is_action_just_pressed("test_Spider")):
-		_on_mob_spawn("spider", 0)
+		_on_mob_spawn("spider", "0")
 	if(Input.is_action_just_pressed("test_Fish")):
-		_on_mob_spawn("fish", 0)
+		_on_mob_spawn("fish", "0")
 	
 func _on_timer_timeout():
 	time += 1
@@ -66,7 +66,7 @@ func get_random_position():
 	
 	return Vector2(x_spawn, y_spawn)
 
-func _on_mob_spawn(type: String, id: int) -> void:
+func _on_mob_spawn(type: String, id: String) -> void:
 	match type:
 		"fish":
 			var enemy_spawn: CharacterBody2D = FISH_ENEMY.instantiate()
