@@ -13,7 +13,6 @@ var angle = Vector2.ZERO
 @onready var player = get_tree().get_first_node_in_group("player")
 
 func _ready():
-	print("ready")
 	angle = global_position.direction_to(target)
 	rotation = angle.angle() + deg_to_rad(45)
 	match level:
@@ -22,25 +21,25 @@ func _ready():
 			speed = 200
 			damage = 5
 			knockback_amount = 100
-			attack_size = 1.0 * (1 - player.spell_size)
+			attack_size = 0.5 * (1 - player.spell_size)
 		2:
 			hp = 3
 			speed = 200
 			damage = 5
 			knockback_amount = 100
-			attack_size = 0.2 * (1 - player.spell_size)
+			attack_size = 0.7 * (1 - player.spell_size)
 		3:
 			hp = 5
 			speed = 300
 			damage = 8
 			knockback_amount = 100
-			attack_size = 0.2 * (1 - player.spell_size)
+			attack_size = 0.9 * (1 - player.spell_size)
 		4:
 			hp = 7
 			speed = 400
 			damage = 8
 			knockback_amount = 100
-			attack_size = 0.2 * (1 - player.spell_size)
+			attack_size = 1.1 * (1 - player.spell_size)
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(1+attack_size,1+attack_size), 1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 

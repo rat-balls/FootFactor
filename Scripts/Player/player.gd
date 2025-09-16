@@ -37,13 +37,13 @@ var additional_attack = 0
 #letterOpener Nodes
 var letterOpener_ammo = 0
 var letterOpener_baseammo = 0
-var letterOpener_attackspeed = 0
+var letterOpener_attackspeed = 4
 var letterOpener_level = 0
 
 #Letter Nodes
 var letter_ammo = 0
 var letter_baseammo = 0
-var letter_attackspeed = 0
+var letter_attackspeed = 5
 var letter_level = 0
 
 #Staby
@@ -115,10 +115,6 @@ func movement():
 
 func attack():
 	if(letterOpener_level > 0):
-		print( letterOpener_attackspeed )
-		print((1 - spell_cooldown))
-		print( letterOpener_attackspeed * (1 - spell_cooldown))
-
 		letterOpenerTimer.wait_time = letterOpener_attackspeed * (1 - spell_cooldown)
 		if letterOpenerTimer.is_stopped():
 			letterOpenerTimer.start()
@@ -131,12 +127,10 @@ func attack():
 
 
 func _on_letterOpener_timer_timeout():
-	print("letterOpener2")
 	letterOpener_ammo += letterOpener_baseammo + additional_attack
 	letterOpenerAttackTimer.start()
 
 func _on_letterOpener_attack_timer_timeout():
-	print("letterOpener")
 	if letterOpener_ammo > 0:
 		var letterOpener_attack = letterOpener.instantiate()
 		letterOpener_attack.position = position
@@ -200,7 +194,7 @@ func death():
 	death_panel.visible = true
 	get_tree().paused = true
 	var tween = death_panel.create_tween()
-	tween.tween_property(death_panel, "position", Vector2(440, 110.0), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(death_panel, "position", Vector2(440, 110.0), 1.5).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
 	if time >= 300:
 		lbl_result.text= "You win"
@@ -269,32 +263,32 @@ func upgrade_character(upgrade):
 	match upgrade:
 		"letter_opener1":
 			letterOpener_level = 1
-			letterOpener_attackspeed = 0.5
+			letterOpener_attackspeed -= 0.5
 			letterOpener_baseammo += 1
 		"letter_opener2":
 			letterOpener_level = 2
+			letterOpener_attackspeed -= 0.5
 			letterOpener_baseammo += 1
 		"letter_opener3":
 			letterOpener_level = 3
-			letterOpener_attackspeed = 1
+			letterOpener_attackspeed -= 1
 		"letter_opener4":
 			letterOpener_level = 4
-			letterOpener_attackspeed = 0.5
+			letterOpener_attackspeed -= 1
 			letterOpener_baseammo += 2
 		"letter1":
 			letter_level = 1
-			letter_attackspeed = 5
 			letter_baseammo += 2
 		"letter2":
 			letter_level = 2
-			letter_attackspeed = 4
+			letter_attackspeed -= 0.5
 			letter_baseammo += 2
 		"letter3":
 			letter_level = 3
-			letter_attackspeed -= 0.5
+			letter_attackspeed -= 1
 		"letter4":
 			letter_level = 4
-			letter_attackspeed = 3
+			letter_attackspeed -= 1
 			letter_baseammo += 2
 		"staby1":
 			staby_level = 1
@@ -311,16 +305,18 @@ func upgrade_character(upgrade):
 		"armor1","armor2","armor3","armor4":
 			armor += 1
 		"speed1","speed2","speed3","speed4":
-			movement_speed += 20.0
+			movement_speed += 50.0
 		"tome1","tome2","tome3","tome4":
-			spell_size += 0.10
+			spell_size += 0.50
 		"scroll1","scroll2","scroll3","scroll4":
-			spell_cooldown += 0.05
+			spell_cooldown += 0.1
 		"ring1","ring2":
 			additional_attack += 1
 		"food":
 			hp += 20
-			hp = clamp(hp,0,maxhp)
+			hp = clamp(hp, 0, maxhp)
+			health_bar.max_value = maxhp
+			health_bar.value = hp
 	adjust_ui_collection(upgrade)
 	attack()
 	health_bar.visible = true
@@ -404,3 +400,8 @@ func adjust_ui_collection(upgrade):
 				"upgrade":
 					collected_skills.add_child(new_item_container) 
 			
+
+
+func _on_restart_button_button_up() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()

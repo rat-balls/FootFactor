@@ -1,36 +1,36 @@
-[gd_scene load_steps=14 format=3 uid="uid://2xuoik3yu85u"]
+[gd_scene load_steps=15 format=3 uid="uid://2xuoik3yu85u"]
 
 [ext_resource type="Script" uid="uid://c853uu0lk0y2t" path="res://Scripts/Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://cs2d27misya4m" path="res://Assets/Sprites/Player/foot_spritesheet.png" id="2_e6m8t"]
 [ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="3_o22ie"]
+[ext_resource type="Texture2D" uid="uid://c1cyfu0p3tgcl" path="res://Assets/Sprites/Player/factor_spritesheet.png" id="3_tr6l7"]
 [ext_resource type="Texture2D" uid="uid://b20o3cpcpr1hb" path="res://Assets/GUI/exp_background.png" id="4_wery2"]
 [ext_resource type="Texture2D" uid="uid://b6sa1hlvf4xfc" path="res://Assets/GUI/exp_progress.png" id="5_e6m8t"]
 [ext_resource type="AudioStream" uid="uid://cmvrwwtvrfhog" path="res://Assets/SFX/enemy_death.ogg" id="6_e6m8t"]
 [ext_resource type="Texture2D" uid="uid://m1dc46u28w1k" path="res://Assets/Sprites/Player/GUI/healthbar.png" id="7_e3lwr"]
 [ext_resource type="Texture2D" uid="uid://jabw3th87wqd" path="res://Assets/Sprites/Player/GUI/health.png" id="8_tr6l7"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k45qg"]
-radius = 8.0
-height = 46.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_k45qg"]
 radius = 731.8
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cae0"]
-size = Vector2(23, 41)
+[sub_resource type="CircleShape2D" id="CircleShape2D_tr6l7"]
+radius = 33.9
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o22ie"]
-radius = 75.0
+radius = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7cae0"]
-radius = 20.0
+radius = 30.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eplfn"]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
 floor_block_on_wall = false
 script = ExtResource("1_4ntmi")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D_OLD" type="Sprite2D" parent="."]
+visible = false
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(-18, -15)
@@ -39,9 +39,13 @@ hframes = 3
 vframes = 3
 frame = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4, 7)
-shape = SubResource("CapsuleShape2D_k45qg")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-8, -1)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_tr6l7")
+hframes = 3
+vframes = 3
+frame = 6
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
@@ -88,8 +92,8 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
-position = Vector2(3.5, 5.5)
-shape = SubResource("RectangleShape2D_7cae0")
+position = Vector2(-2, -12)
+shape = SubResource("CircleShape2D_tr6l7")
 
 [node name="GrabArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -103,6 +107,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
+position = Vector2(-2, -12)
 shape = SubResource("CircleShape2D_7cae0")
 
 [node name="GUILayer" type="CanvasLayer" parent="."]
@@ -260,7 +265,7 @@ text = "RESULT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="GUILayer/DeathPanel"]
+[node name="RestartButton" type="Button" parent="GUILayer/DeathPanel"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 1
 anchors_preset = 7
@@ -281,6 +286,9 @@ process_mode = 3
 stream = ExtResource("6_e6m8t")
 pitch_scale = 9.75
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eplfn")
+
 [connection signal="timeout" from="Attacks/LetterOpenerTimer" to="." method="_on_letterOpener_timer_timeout"]
 [connection signal="timeout" from="Attacks/LetterOpenerTimer/LetterOpenerAttackTimer" to="." method="_on_letterOpener_attack_timer_timeout"]
 [connection signal="timeout" from="Attacks/LetterTimer" to="." method="_on_letter_timer_timeout"]
@@ -290,5 +298,6 @@ pitch_scale = 9.75
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
+[connection signal="button_up" from="GUILayer/DeathPanel/RestartButton" to="." method="_on_restart_button_button_up"]
 
 [editable path="HurtBox"]

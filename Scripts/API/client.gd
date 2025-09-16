@@ -13,6 +13,7 @@ var env = config.load("res://env.cfg")
 
 signal enemy_received(type: String, id: String)
 signal enemy_death(type: String, id: String)
+signal new_run()
 
 # The URL we will connect to.
 @export var websocket_url = "wss://foot-factor.onrender.com/ws?token="
@@ -35,6 +36,7 @@ func _ready():
 		socket.send_text('{"event":"SYN","data":"test"}')
 	
 	enemy_death.connect(_on_enemy_death)
+	new_run.connect(_on_new_run)
 
 func _process(_delta):
 	# Call this in _process or _physics_process. Data transfer and state updates
@@ -77,3 +79,7 @@ func _process(_delta):
 
 func _on_enemy_death(id):
 	socket.send_text('{"event":"MONSTER_KILL","data":{"mobInstanceId":"' + str(id) + '"}}')
+
+func _on_new_run():
+	print("Restarting run")
+	socket.send_text('{"event":"UPDATE_STATE","data":{"action":"reset"}}')
