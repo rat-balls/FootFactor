@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://c6q7802vmo5m"]
 
-[ext_resource type="Script" uid="uid://bdyjkqxukym8t" path="res://Scripts/Enemy/enemy.gd" id="1_6cdpy"]
+[ext_resource type="Script" path="res://Scripts/Enemy/fish_enemy.gd" id="1_6cdpy"]
 [ext_resource type="Texture2D" uid="uid://cn2y8hn87aga" path="res://Assets/Sprites/Enemies/spider_monster.png" id="3_okl4l"]
 [ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="3_v347b"]
 [ext_resource type="PackedScene" uid="uid://5ubgwi0xjbt2" path="res://Scenes/Prefabs/Utility/hit_box.tscn" id="4_okl4l"]
