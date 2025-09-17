@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://bxw8vf2g4it62"]
 
-[ext_resource type="Script" path="res://Scripts/Enemy/fish_enemy.gd" id="1_na7l1"]
+[ext_resource type="Script" uid="uid://bn0frpi3v56m8" path="res://Scripts/Enemy/fish_enemy.gd" id="1_na7l1"]
 [ext_resource type="Texture2D" uid="uid://dvqf1mw4bn6ab" path="res://Assets/Sprites/Enemies/fish_enemy_spritesheet.png" id="2_xrxy6"]
 [ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="3_m04d6"]
 [ext_resource type="PackedScene" uid="uid://5ubgwi0xjbt2" path="res://Scenes/Prefabs/Utility/hit_box.tscn" id="4_mfooq"]
