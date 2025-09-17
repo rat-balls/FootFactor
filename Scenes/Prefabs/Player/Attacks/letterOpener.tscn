@@ -8,7 +8,7 @@
 radius = 3.5
 height = 56.5685
 
-[node name="iceSpear" type="Area2D" groups=["attack"]]
+[node name="letterOpener" type="Area2D" groups=["attack"]]
 top_level = true
 scale = Vector2(0.1, 0.1)
 collision_layer = 4
