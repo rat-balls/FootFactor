@@ -9,7 +9,7 @@ var last_movement = Vector2.UP
 var time = 0
 
 var experience = 0 
-var experience_level = 1 
+var experience_level = 1
 var collected_experience = 0
 
 #Attacks
@@ -251,7 +251,7 @@ func calculate_experiencecap():
 	if experience_level < 20:
 		exp_cap = experience_level * 5
 	elif experience_level < 40:
-		exp_cap + 95 + (experience_level - 19) * 8
+		exp_cap = 95 + (experience_level - 19) * 8
 	else:
 		exp_cap = 255 + (experience_level - 39) * 12
 	return exp_cap
