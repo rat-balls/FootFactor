@@ -78,6 +78,13 @@ wait_time = 0.2
 [node name="StabyBase" type="Node2D" parent="Attacks"]
 unique_name_in_owner = true
 
+[node name="StickyTimer" type="Timer" parent="Attacks"]
+unique_name_in_owner = true
+wait_time = 3.0
+
+[node name="StickyAttackTimer" type="Timer" parent="Attacks/StickyTimer"]
+wait_time = 0.075
+
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
@@ -310,6 +317,8 @@ shape = SubResource("CircleShape2D_eplfn")
 [connection signal="timeout" from="Attacks/LetterOpenerTimer/LetterOpenerAttackTimer" to="." method="_on_letterOpener_attack_timer_timeout"]
 [connection signal="timeout" from="Attacks/LetterTimer" to="." method="_on_letter_timer_timeout"]
 [connection signal="timeout" from="Attacks/LetterTimer/LetterAttackTimer" to="." method="_on_letter_attack_timer_timeout"]
+[connection signal="timeout" from="Attacks/StickyTimer" to="." method="_on_sticky_timer_timeout"]
+[connection signal="timeout" from="Attacks/StickyTimer/StickyAttackTimer" to="." method="_on_sticky_attack_timer_timeout"]
 [connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
 [connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
