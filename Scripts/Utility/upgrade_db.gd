@@ -4,6 +4,38 @@ extends Node
 const ICON_PATH = "res://Assets/Sprites/Player/Skills/"
 const WEAPON_PATH = "res://Assets/Sprites/Player/Attacks/"
 const UPGRADES = {
+	"sticky1": {
+		"icon": WEAPON_PATH + "STABY.png",
+		"displayname": "sticky",
+		"details": " ",
+		"level": "Level: 1",
+		"prerequisite": [],
+		"type": "weapon"
+	},
+	"sticky2": {
+		"icon": WEAPON_PATH + "STABY.png",
+		"displayname": "sticky",
+		"details": "",
+		"level": "Level: 2",
+		"prerequisite": ["sticky1"],
+		"type": "weapon"
+	},
+	"sticky3": {
+		"icon": WEAPON_PATH + "STABY.png",
+		"displayname": "sticky",
+		"details": " ",
+		"level": "Level: 3",
+		"prerequisite": ["sticky2"],
+		"type": "weapon"
+	},
+	"sticky4": {
+		"icon": WEAPON_PATH + "STABY.png",
+		"displayname": "sticky",
+		"details": " ",
+		"level": "Level: 4",
+		"prerequisite": ["sticky3"],
+		"type": "weapon"
+	},
 	"letter_opener1": {
 		"icon": WEAPON_PATH + "ouvre_lettre.png",
 		"displayname": "Ouvre Lettre",

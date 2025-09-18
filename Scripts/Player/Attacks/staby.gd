@@ -3,7 +3,7 @@ extends Area2D
 var level = 1
 var hp = 99999999
 var speed = 250
-var damage = 10
+var damage = 15
 var knockback_amount = 200
 var attack_size = 1.0
 var attack_speed = 5
@@ -28,32 +28,32 @@ func update_staby():
 	level = player.staby_level
 	match level:
 		1:
-			hp = 9999
-			speed = 200.0
-			damage = 10
-			knockback_amount = 100
-			attack_size = 1.0 * (1 + player.spell_size)
-			attack_speed = 5.0 * (1 - player.spell_cooldown)
-		2:
-			hp = 9999
-			speed = 200.0
-			damage = 10
-			knockback_amount = 100
-			attack_size = 1.0 * (1 + player.spell_size)
-			attack_speed = 4.0 * (1 - player.spell_cooldown)
-		3:
-			hp = 9999
+			hp = 99999999
 			speed = 300.0
 			damage = 15
 			knockback_amount = 120
 			attack_size = 1.0 * (1 + player.spell_size)
-			attack_speed = 4.0 * (1 - player.spell_cooldown)
-		3:
-			hp = 9999
-			speed = 300.0
+			attack_speed = 5.0 * (1 - player.spell_cooldown)
+		2:
+			hp = 99999999
+			speed = 400.0
 			damage = 15
 			knockback_amount = 150
 			attack_size = 1.0 * (1 + player.spell_size)
+			attack_speed = 4.0 * (1 - player.spell_cooldown)
+		3:
+			hp = 99999999
+			speed = 400.0
+			damage = 30
+			knockback_amount = 150
+			attack_size = 1.5 * (1 + player.spell_size)
+			attack_speed = 4.0 * (1 - player.spell_cooldown)
+		3:
+			hp = 99999999
+			speed = 500.0
+			damage = 40
+			knockback_amount = 200
+			attack_size = 1.5 * (1 + player.spell_size)
 			attack_speed = 3.0 * (1 - player.spell_cooldown)
 	
 	scale = Vector2(1.0, 1.0) * attack_size

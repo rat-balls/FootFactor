@@ -8,6 +8,7 @@ extends Area2D
 signal hurt(damage, angle, knockback)
 
 var hit_once_array = []
+var sticked = false
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("attack"):
@@ -37,7 +38,9 @@ func _on_area_entered(area: Area2D) -> void:
 			emit_signal("hurt", damage, angle, knockback, slowing)
 			if area.has_method("enemy_hit"):
 				area.enemy_hit(1)
-
+			if area.has_method("enemy_stick") && !sticked:
+				sticked = true
+				area.enemy_stick(self)
 
 func _on_disable_timer_timeout() -> void:
 	collision.call_deferred("set", "disabled", false)

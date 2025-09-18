@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 var normal_movement_speed = 300.0
 var movement_speed = 300.0
-var hp = 8000
-var maxhp = 8000
+var hp = 80
+var maxhp = 80
 var last_movement = Vector2.UP
 
 var time = 0
@@ -16,6 +16,7 @@ var collected_experience = 0
 const letterOpener: Resource = preload("res://Scenes/Prefabs/Player/Attacks/letterOpener.tscn")
 const letter: Resource = preload("res://Scenes/Prefabs/Player/Attacks/letter.tscn")
 const staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn")
+const STICKY = preload("res://Scenes/Prefabs/Player/Attacks/sticky.tscn")
 
 #Attack Nodes
 @onready var letterOpenerTimer: Timer = get_node("%LetterOpenerTimer")
@@ -23,6 +24,8 @@ const staby: Resource = preload("res://Scenes/Prefabs/Player/Attacks/staby.tscn"
 @onready var letterTimer: Timer = get_node("%LetterTimer")
 @onready var letterAttackTimer: Timer =  letterOpenerTimer.get_node("%LetterAttackTimer")
 @onready var staby_base: Node2D = get_node("%StabyBase")
+@onready var sticky_timer: Timer = %StickyTimer
+@onready var sticky_attack_timer: Timer = $Attacks/StickyTimer/StickyAttackTimer
 
 
 #UPGRADES
@@ -40,6 +43,14 @@ var letterOpener_baseammo = 0
 var letterOpener_attackspeed = 2
 var letterOpener_level = 0
 
+#sticky Nodes
+var sticky_ammo = 0
+var sticky_baseammo = 0
+var sticky_propagateammo = 3
+var sticky_propagate_count = 1 
+var sticky_attackspeed = 6
+var sticky_level = 0
+
 #Letter Nodes
 var letter_ammo = 0
 var letter_baseammo = 0
@@ -56,7 +67,6 @@ var enemy_close = []
 var mov: Vector2 = Vector2.ZERO
 
 @onready var sprite = $Sprite2D
-@onready var walkTimer = get_node("%walkTimer")
 
 #GUI
 @onready var expBar = get_node("%ExperienceBar")
@@ -76,6 +86,10 @@ var mov: Vector2 = Vector2.ZERO
 func _ready():
 	set_expBar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0, 0, 0, false)
+	upgrade_character("sticky1")
+	upgrade_character("sticky2")
+	upgrade_character("sticky3")
+	upgrade_character("sticky4")
 
 func _physics_process(_delta: float) -> void:
 	movement()
@@ -115,15 +129,40 @@ func movement():
 
 func attack():
 	if(letterOpener_level > 0):
-		letterOpenerTimer.wait_time = letterOpener_attackspeed * (1 - spell_cooldown)
+		var attacktime = letterOpener_attackspeed * (1 - spell_cooldown)
+		letterOpenerTimer.wait_time = attacktime if attacktime > 0 else 0.1
 		if letterOpenerTimer.is_stopped():
 			letterOpenerTimer.start()
+	if(sticky_level > 0):
+		var attacktime = sticky_attackspeed * (1 - spell_cooldown)
+		sticky_timer.wait_time = attacktime if attacktime > 0 else 0.1
+		if sticky_timer.is_stopped():
+			sticky_timer.start()
 	if(letter_level > 0):
-		letterTimer.wait_time = letter_attackspeed * (1 - spell_cooldown)
+		var attacktime = letter_attackspeed * (1 - spell_cooldown)
+		letterTimer.wait_time = attacktime if attacktime > 0 else 0.1
 		if letterTimer.is_stopped():
 			letterTimer.start()
 	if staby_level > 0:
 		spawn_staby()
+
+
+func _on_sticky_timer_timeout() -> void:
+	sticky_ammo += sticky_baseammo 
+	sticky_attack_timer.start()
+
+func _on_sticky_attack_timer_timeout() -> void:
+	if sticky_ammo > 0:
+		var sticky_attack = STICKY.instantiate()
+		sticky_attack.position = position
+		sticky_attack.target = get_random_target()
+		sticky_attack.level = sticky_level
+		add_child(sticky_attack)
+		sticky_ammo -= 1
+		if sticky_ammo > 0:
+			sticky_attack_timer.start()
+		else:
+			sticky_attack_timer.stop()
 
 
 func _on_letterOpener_timer_timeout():
@@ -185,9 +224,9 @@ func _on_enemy_detection_area_body_exited(body):
 
 func _on_hurt_box_hurt(damage: Variant, _angle, _knockback, slowing) -> void:
 	if slowing:
-		movement_speed -= movement_speed * 0.7
-		var slow_tween = create_tween()
-		slow_tween.tween_property(self, "movement_speed", normal_movement_speed, 1.5).set_ease(Tween.EASE_OUT)
+		movement_speed -= movement_speed * 0.5
+		var slow_tween = self.create_tween()
+		slow_tween.tween_property(self, "movement_speed", normal_movement_speed, 1.5).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		slow_tween.play()
 	hp -= clamp(damage - armor, 1.0, 999.0)
 	health_bar.max_value = maxhp
@@ -280,6 +319,20 @@ func level_up():
 
 func upgrade_character(upgrade):
 	match upgrade:
+		"sticky1":
+			sticky_level = 1
+			sticky_attackspeed -= 0.5
+			sticky_baseammo += 1
+		"sticky2":
+			sticky_level = 2
+			sticky_propagateammo += 1
+		"sticky3":
+			sticky_level = 3
+			sticky_attackspeed -= 0.5
+		"sticky4":
+			sticky_level = 4
+			sticky_attackspeed -= 0.5
+			sticky_propagate_count += 1
 		"letter_opener1":
 			letterOpener_level = 1
 			letterOpener_attackspeed -= 0.5
