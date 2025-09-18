@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3l1y15hjbbp5"]
+[gd_scene load_steps=6 format=3 uid="uid://b3l1y15hjbbp5"]
 
 [ext_resource type="FontFile" uid="uid://cce4fvd4s4hlw" path="res://Assets/Fonts/Merchant Copy.ttf" id="1_4kcm1"]
 [ext_resource type="Script" uid="uid://cin24tstrhneo" path="res://Scripts/TitleScreen/menu.gd" id="1_r2uo7"]
-[ext_resource type="VideoStream" uid="uid://d08o7k5fpgfn3" path="res://Assets/Video/10-Second-Video-Loop.ogv" id="2_4mbxv"]
+[ext_resource type="Texture2D" uid="uid://mooo4ql36drv" path="res://Assets/Sprites/Building/image.png" id="2_owbyt"]
+[ext_resource type="VideoStream" uid="uid://c2scxggd40tcq" path="res://Assets/Video/video.ogv" id="3_mrnsd"]
 [ext_resource type="AudioStream" uid="uid://373vs02i61cx" path="res://Assets/SFX/Audio_SoundEffect_enemy_hit.ogg" id="4_di8po"]
 
 [node name="Menu" type="Control"]
@@ -21,28 +22,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-stream = ExtResource("2_4mbxv")
+stream = ExtResource("3_mrnsd")
 autoplay = true
 expand = true
 loop = true
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.361
-anchor_top = 0.06
-anchor_right = 0.639
-anchor_bottom = 0.199
-offset_left = -0.580048
-offset_top = 0.0149994
-offset_right = 0.579956
-offset_bottom = -0.0650177
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("1_4kcm1")
-theme_override_font_sizes/font_size = 72
-text = "FOOT FACTOR"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="btn_play" type="Button" parent="."]
 layout_mode = 1
@@ -177,6 +160,14 @@ text = "Fullscreen"
 
 [node name="Hover" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_di8po")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 74.0
+offset_top = 51.0
+offset_right = 569.0
+offset_bottom = 306.0
+texture = ExtResource("2_owbyt")
 
 [connection signal="mouse_entered" from="btn_play" to="." method="_on_btn_play_mouse_entered"]
 [connection signal="pressed" from="btn_play" to="." method="_on_play_pressed"]
