@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://h8jx1ujn5x6h" path="res://Scripts/Enemy/webball.gd" id="1_b0t50"]
 [ext_resource type="AudioStream" uid="uid://x0nm6hkhee0o" path="res://Assets/SFX/Révolution Verte.mp3" id="2_2krlk"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2krlk"]
-radius = 8.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_b0t50"]
+radius = 9.0
 
 [node name="Webball" type="Area2D" groups=["attack"]]
 top_level = true
@@ -18,7 +18,7 @@ script = ExtResource("1_b0t50")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.38419e-07)
 rotation = 0.785398
-shape = SubResource("CircleShape2D_2krlk")
+shape = SubResource("CircleShape2D_b0t50")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(2, 1.5, 1.5, 1)

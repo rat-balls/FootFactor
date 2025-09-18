@@ -5,6 +5,7 @@ extends Node2D
 @onready var player = get_tree().get_first_node_in_group("player")
 const FISH_ENEMY = preload("res://Scenes/Prefabs/Enemy/fish_enemy.tscn")
 const SPIDER_ENEMY = preload("res://Scenes/Prefabs/Enemy/spider_enemy.tscn")
+const SNAIL_ENEMY = preload("res://Scenes/Prefabs/Enemy/snail_enemy.tscn")
 
 var time = 0
 
@@ -16,10 +17,12 @@ func _ready() -> void:
 
 func _process(_delta) -> void:
 	if(Input.is_action_just_pressed("test_Spider")):
-		_on_mob_spawn("spider", "5", "1", "20", "0")
-	if(Input.is_action_just_pressed("test_Fish")):
+		_on_mob_spawn("spider", "5", "1", "30", "0")
 		_on_mob_spawn("fish", "10", "2", "10", "0")
-	
+		_on_mob_spawn("fish", "10", "2", "10", "0")
+		_on_mob_spawn("fish", "10", "2", "10", "0")
+		_on_mob_spawn("snail", "15", "1", "30", "0")
+
 func _on_timer_timeout():
 	time += 1
 	var enemy_spawns = spawns
@@ -73,7 +76,7 @@ func _on_mob_spawn(type: String, life: String, damage: String, cost: String, id:
 		"fish":
 			enemy_spawn = FISH_ENEMY.instantiate()
 		"snail":
-			enemy_spawn = FISH_ENEMY.instantiate()
+			enemy_spawn = SNAIL_ENEMY.instantiate()
 		"dog":
 			enemy_spawn = FISH_ENEMY.instantiate()
 		"spider":

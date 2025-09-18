@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-@export var movement_speed = 100.0
+@export var movement_speed = 60.0
 @export var hp = 10
-@export var knockback_recovery = 5
+@export var knockback_recovery = 2
 @export var experience = 1
 var knockback = Vector2.ZERO
 var _id = 0
@@ -10,13 +10,8 @@ var _id = 0
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group("player")
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite:Sprite2D = $Sprite2D
-@onready var animation:AnimationPlayer = $AnimationPlayer
 @onready var sound_hit = $snd_hit
-const SPIDER_MONSTER = preload("res://Assets/Sprites/Enemies/spider_monster.png")
-const SPIDER_MONSTER_COBWEB = preload("res://Assets/Sprites/Enemies/spider_monster_cobweb.png")
-@onready var cooldown_timer: Timer = $CooldownTimer
-@onready var attack_anim_timer: Timer = $AttackAnimTimer
-const WEBBALL = preload("res://Scenes/Prefabs/Enemy/webball.tscn")
+const ACID_POOL = preload("res://Scenes/Prefabs/Enemy/acid_pool.tscn")
 
 var death_anim: Resource = preload("res://Scenes/Prefabs/Enemy/explosion.tscn")
 
@@ -24,26 +19,18 @@ var exp_gem = preload("res://Scenes/Prefabs/Objects/experience.tscn")
 
 signal remove_from_array(object)
 
-var attacking = false;
 
 func _ready():
 	hp += player.time * 0.1
-	cooldown_timer.start()
 
 
 func _physics_process(_delta: float) -> void:
-	if(attacking):
-		sprite.texture = SPIDER_MONSTER_COBWEB
-	else:
-		sprite.texture = SPIDER_MONSTER
 	
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	var direction = global_position.direction_to(player.global_position)
 	velocity = direction * movement_speed
 	velocity += knockback
-	if !attacking:
-		if global_position.distance_to(player.global_position) > 450:
-			move_and_slide()
+	move_and_slide()
 	
 	var right_big = direction.x > 0.5
 	var right_small = direction.x > 0.25
@@ -93,6 +80,10 @@ func death():
 	
 	Client.enemy_death.emit(_id)
 	
+	var new_slime_pool = ACID_POOL.instantiate()
+	new_slime_pool.global_position = global_position
+	get_parent().call_deferred("add_child", new_slime_pool)
+	
 	queue_free()
 
 func _on_hurt_box_hurt(damage: Variant, angle, knockback_amount, _slowing) -> void:
@@ -108,20 +99,3 @@ func _on_hurt_box_hurt(damage: Variant, angle, knockback_amount, _slowing) -> vo
 		death()
 	else:
 		sound_hit.play( )
-
-func send_ball():
-	var ball = WEBBALL.instantiate()
-	ball.position = position + velocity * 0.5
-	add_child(ball)
-
-func _on_cooldown_timer_timeout() -> void:
-	attacking = true
-	attack_anim_timer.start()
-	cooldown_timer.stop()
-
-
-func _on_attack_anim_timer_timeout() -> void:
-	attacking = false
-	cooldown_timer.start()
-	send_ball()
-	attack_anim_timer.stop()
