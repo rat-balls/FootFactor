@@ -77,6 +77,8 @@ func enemy_stick(enemy):
 	damage_timer.start()
 
 func _on_duration_timeout() -> void:
+	if(sticked_enemy):
+		sticked_enemy.sticked = false
 	queue_free()
 
 func _on_damage_timer_timeout() -> void:
@@ -85,8 +87,6 @@ func _on_damage_timer_timeout() -> void:
 		damage_timer.start()
 
 func _on_propagate_timer_timeout() -> void:
-	print(propagated)
-	print(player.sticky_propagate_count)
 	if(propagated < player.sticky_propagate_count && sticked):
 		for i in player.sticky_propagateammo + player.additional_attack :
 			var new_sticky: Area2D = STICKY.instantiate()

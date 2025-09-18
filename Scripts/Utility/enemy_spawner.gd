@@ -71,6 +71,12 @@ func get_random_position():
 	return Vector2(x_spawn, y_spawn)
 
 func _on_mob_spawn(type: String, life: String, damage: String, cost: String, id: String) -> void:
+	if(Client.enemy_pooling.filter(func(element): return element.type == type).size() > 0):
+		wake_mob(type, life, damage, cost, id)
+	else:
+		spawn_mob(type, life, damage, cost, id)
+
+func spawn_mob(type: String, life: String, damage: String, cost: String, id: String):
 	var enemy_spawn: RigidBody2D = null
 	match type:
 		"fish":
@@ -88,3 +94,22 @@ func _on_mob_spawn(type: String, life: String, damage: String, cost: String, id:
 		enemy_spawn.experience = float(cost)/10
 		enemy_spawn._id = id
 		add_child(enemy_spawn)
+
+func wake_mob(type: String, life: String, damage: String, cost: String, id: String):
+	var enemy_spawn: RigidBody2D = Client.enemy_pooling.filter(func(element): return element.type == type)[0]
+	if(enemy_spawn != null):
+		enemy_spawn.dead = false
+		enemy_spawn.experience = float(cost)/10
+		enemy_spawn._id = id
+		enemy_spawn.global_position = get_random_position()
+		enemy_spawn.hp = int(life)
+		var hitbox = enemy_spawn.get_node("HitBox")
+		hitbox.damage = int(damage)
+		hitbox.set_deferred("monitoring", true)
+		hitbox.set_deferred("monitorable", true)
+		enemy_spawn.get_node("CollisionShape2D").set_deferred("disabled", false) 
+		enemy_spawn.sleeping = false
+		enemy_spawn.get_node("Sprite2D").visible = true
+		Client.enemy_pooling.remove_at(Client.enemy_pooling.find(enemy_spawn))
+	else:
+		spawn_mob(type, life, damage, cost, id)	

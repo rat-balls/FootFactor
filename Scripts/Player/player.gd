@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 var normal_movement_speed = 300.0
 var movement_speed = 300.0
-var hp = 80
-var maxhp = 80
+var hp = 800000
+var maxhp = 800000
 var last_movement = Vector2.UP
 
 var time = 0
@@ -86,10 +86,6 @@ var mov: Vector2 = Vector2.ZERO
 func _ready():
 	set_expBar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0, 0, 0, false)
-	upgrade_character("sticky1")
-	upgrade_character("sticky2")
-	upgrade_character("sticky3")
-	upgrade_character("sticky4")
 
 func _physics_process(_delta: float) -> void:
 	movement()

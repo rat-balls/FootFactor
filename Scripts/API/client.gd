@@ -15,6 +15,8 @@ signal enemy_received(type: String, life: String, damage: String, cost: String, 
 signal enemy_death(type: String, id: String)
 signal new_run()
 
+var enemy_pooling: Array = []
+
 # The URL we will connect to.
 @export var websocket_url = "wss://foot-factor.onrender.com/ws?token="
 
@@ -60,7 +62,7 @@ func _process(_delta):
 				if(data_received["event"] == "MONSTER_SPAWN"):
 					var data = data_received["data"]
 					var mobType = data["mobType"]
-					enemy_received.emit(mobType["name"], mobType["life"], mobType["damage"], mobType["cost"], data["mobInstanceId"])
+					enemy_received.emit(str(mobType["name"]), str(mobType["life"]),str( mobType["damage"]),str( mobType["cost"]), str(data["mobInstanceId"]))
 			else:
 				print("JSON Parse Error: ", json.get_error_message(), " in ",  socket.get_packet().get_string_from_utf8(), " at line ", json.get_error_line())
 

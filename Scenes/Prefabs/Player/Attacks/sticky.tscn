@@ -9,6 +9,7 @@ size = Vector2(12.06, 18.34)
 
 [node name="Sticky" type="Area2D" groups=["attack"]]
 top_level = true
+z_index = 15
 scale = Vector2(0.1, 0.1)
 collision_layer = 4
 collision_mask = 4

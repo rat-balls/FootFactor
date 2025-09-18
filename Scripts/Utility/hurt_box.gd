@@ -11,7 +11,7 @@ var hit_once_array = []
 var sticked = false
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("attack"):
+	if (get_parent().get("dead") != null && !get_parent().dead) && area.is_in_group("attack"):
 		if not area.get("damage") == null:
 			match HurtBoxType:
 				0: #CoolDown
