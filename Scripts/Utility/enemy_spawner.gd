@@ -71,7 +71,7 @@ func get_random_position():
 	return Vector2(x_spawn, y_spawn)
 
 func _on_mob_spawn(type: String, life: String, damage: String, cost: String, id: String) -> void:
-	var enemy_spawn: CharacterBody2D = null
+	var enemy_spawn: RigidBody2D = null
 	match type:
 		"fish":
 			enemy_spawn = FISH_ENEMY.instantiate()

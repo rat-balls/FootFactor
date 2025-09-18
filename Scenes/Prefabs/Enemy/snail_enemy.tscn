@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://vtm1dh5v1w1k"]
+[gd_scene load_steps=10 format=3 uid="uid://vtm1dh5v1w1k"]
 
 [ext_resource type="Script" uid="uid://cka1axc24ar4" path="res://Scripts/Enemy/snail_enemy.gd" id="1_dx8ja"]
 [ext_resource type="Texture2D" uid="uid://dq0cioi3kq60s" path="res://Assets/Sprites/Enemies/snail_spritesheet.png" id="2_dx8ja"]
@@ -6,35 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://5ubgwi0xjbt2" path="res://Scenes/Prefabs/Utility/hit_box.tscn" id="4_blf8c"]
 [ext_resource type="AudioStream" uid="uid://373vs02i61cx" path="res://Assets/SFX/Audio_SoundEffect_enemy_hit.ogg" id="5_pwlxo"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dx8ja"]
+friction = 0.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_022wn"]
 radius = 12.0
 height = 94.0
-
-[sub_resource type="Animation" id="Animation_25nyl"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_022wn"]
-resource_name = "walk"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_25nyl"]
-_data = {
-&"RESET": SubResource("Animation_25nyl"),
-&"walk": SubResource("Animation_022wn")
-}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mha1i"]
 size = Vector2(63, 63)
@@ -42,9 +19,12 @@ size = Vector2(63, 63)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5slor"]
 size = Vector2(30.75, 55)
 
-[node name="snail_enemy" type="CharacterBody2D" groups=["enemy"]]
-collision_layer = 5
-collision_mask = 5
+[node name="snail_enemy" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_dx8ja")
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp_mode = 1
+angular_damp_mode = 1
 script = ExtResource("1_dx8ja")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -55,11 +35,6 @@ vframes = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -2)
 shape = SubResource("CapsuleShape2D_022wn")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_25nyl")
-}
 
 [node name="HurtBox" parent="." instance=ExtResource("3_ya5bt")]
 collision_layer = 4

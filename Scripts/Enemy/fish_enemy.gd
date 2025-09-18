@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends RigidBody2D
 
 @export var movement_speed = 100.0
 @export var hp = 10
@@ -10,7 +10,6 @@ var _id = 0
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group("player")
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite:Sprite2D = $Sprite2D
-@onready var animation:AnimationPlayer = $AnimationPlayer
 @onready var sound_hit = $snd_hit
 
 var death_anim: Resource = preload("res://Scenes/Prefabs/Enemy/explosion.tscn")
@@ -25,9 +24,8 @@ func _ready():
 func _physics_process(_delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	var direction = global_position.direction_to(player.global_position)
-	velocity = direction * movement_speed
-	velocity += knockback
-	move_and_slide()
+	linear_velocity = direction * movement_speed
+	linear_velocity += knockback
 	
 	var right_big = direction.x > 0.5
 	var right_small = direction.x > 0.25
