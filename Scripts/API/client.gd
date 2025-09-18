@@ -11,7 +11,7 @@ enum WebsocketEventC2SEnum {
 var config = ConfigFile.new()
 var env = config.load("res://env.cfg")
 
-signal enemy_received(type: String, id: String)
+signal enemy_received(type: String, life: String, damage: String, cost: String, id: String)
 signal enemy_death(type: String, id: String)
 signal new_run()
 
@@ -60,7 +60,7 @@ func _process(_delta):
 				if(data_received["event"] == "MONSTER_SPAWN"):
 					var data = data_received["data"]
 					var mobType = data["mobType"]
-					enemy_received.emit(mobType["name"], data["mobInstanceId"])
+					enemy_received.emit(mobType["name"], mobType["life"], mobType["damage"], mobType["cost"], data["mobInstanceId"])
 			else:
 				print("JSON Parse Error: ", json.get_error_message(), " in ",  socket.get_packet().get_string_from_utf8(), " at line ", json.get_error_line())
 

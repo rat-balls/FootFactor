@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxw8vf2g4it62"]
+[gd_scene load_steps=10 format=3 uid="uid://bxw8vf2g4it62"]
 
 [ext_resource type="Script" uid="uid://bn0frpi3v56m8" path="res://Scripts/Enemy/fish_enemy.gd" id="1_na7l1"]
 [ext_resource type="Texture2D" uid="uid://dvqf1mw4bn6ab" path="res://Assets/Sprites/Enemies/fish_enemy_spritesheet.png" id="2_xrxy6"]
@@ -6,45 +6,28 @@
 [ext_resource type="PackedScene" uid="uid://5ubgwi0xjbt2" path="res://Scenes/Prefabs/Utility/hit_box.tscn" id="4_mfooq"]
 [ext_resource type="AudioStream" uid="uid://373vs02i61cx" path="res://Assets/SFX/Audio_SoundEffect_enemy_hit.ogg" id="5_rcya7"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_na7l1"]
+friction = 0.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_022wn"]
 radius = 12.0
 height = 94.0
 
-[sub_resource type="Animation" id="Animation_25nyl"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_022wn"]
-resource_name = "walk"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_25nyl"]
-_data = {
-&"RESET": SubResource("Animation_25nyl"),
-&"walk": SubResource("Animation_022wn")
-}
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5slor"]
+size = Vector2(30.75, 55)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mha1i"]
 size = Vector2(63, 63)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5slor"]
-size = Vector2(30.75, 55)
-
-[node name="fish_enemy" type="CharacterBody2D" groups=["enemy"]]
-collision_layer = 5
+[node name="fish_enemy" type="RigidBody2D"]
+collision_layer = 4
 collision_mask = 5
+mass = 0.001
+physics_material_override = SubResource("PhysicsMaterial_na7l1")
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp_mode = 1
+angular_damp_mode = 1
 script = ExtResource("1_na7l1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -56,10 +39,15 @@ vframes = 3
 position = Vector2(-1, -2)
 shape = SubResource("CapsuleShape2D_022wn")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_25nyl")
-}
+[node name="HitBox" parent="." instance=ExtResource("4_mfooq")]
+collision_layer = 2
+collision_mask = 2
+damage = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+visible = false
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_5slor")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_m04d6")]
 collision_layer = 4
@@ -71,15 +59,6 @@ visible = false
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_mha1i")
 
-[node name="HitBox" parent="." instance=ExtResource("4_mfooq")]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" parent="HitBox" index="0"]
-visible = false
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_5slor")
-
 [node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_rcya7")
 volume_db = -20.0
@@ -87,5 +66,5 @@ volume_db = -20.0
 [connection signal="area_exited" from="HurtBox" to="HurtBox" method="_on_area_exited"]
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 
-[editable path="HurtBox"]
 [editable path="HitBox"]
+[editable path="HurtBox"]

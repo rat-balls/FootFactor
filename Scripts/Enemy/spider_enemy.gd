@@ -1,8 +1,8 @@
-extends CharacterBody2D
+extends RigidBody2D
 
 @export var movement_speed = 100.0
 @export var hp = 10
-@export var knockback_recovery = 3.5
+@export var knockback_recovery = 5
 @export var experience = 1
 var knockback = Vector2.ZERO
 var _id = 0
@@ -10,7 +10,6 @@ var _id = 0
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group("player")
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite:Sprite2D = $Sprite2D
-@onready var animation:AnimationPlayer = $AnimationPlayer
 @onready var sound_hit = $snd_hit
 const SPIDER_MONSTER = preload("res://Assets/Sprites/Enemies/spider_monster.png")
 const SPIDER_MONSTER_COBWEB = preload("res://Assets/Sprites/Enemies/spider_monster_cobweb.png")
@@ -39,11 +38,10 @@ func _physics_process(_delta: float) -> void:
 	
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	var direction = global_position.direction_to(player.global_position)
-	velocity = direction * movement_speed
-	velocity += knockback
-	if !attacking:
-		if global_position.distance_to(player.global_position) > 450:
-			move_and_slide()
+	linear_velocity = direction * movement_speed
+	linear_velocity += knockback
+	if attacking or global_position.distance_to(player.global_position) < 450:
+		linear_velocity = Vector2.ZERO
 	
 	var right_big = direction.x > 0.5
 	var right_small = direction.x > 0.25
@@ -111,7 +109,7 @@ func _on_hurt_box_hurt(damage: Variant, angle, knockback_amount, _slowing) -> vo
 
 func send_ball():
 	var ball = WEBBALL.instantiate()
-	ball.position = position + velocity * 0.5
+	ball.position = position + linear_velocity * 0.5
 	add_child(ball)
 
 func _on_cooldown_timer_timeout() -> void:

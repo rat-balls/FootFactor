@@ -43,4 +43,4 @@ position = Vector2(604, 338)
 [node name="Experience" parent="." instance=ExtResource("3_woslj")]
 z_index = 10
 position = Vector2(411, 345)
-experience = 10
+experience = 5

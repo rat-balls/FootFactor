@@ -5,6 +5,7 @@ extends Node2D
 @onready var player = get_tree().get_first_node_in_group("player")
 const FISH_ENEMY = preload("res://Scenes/Prefabs/Enemy/fish_enemy.tscn")
 const SPIDER_ENEMY = preload("res://Scenes/Prefabs/Enemy/spider_enemy.tscn")
+const SNAIL_ENEMY = preload("res://Scenes/Prefabs/Enemy/snail_enemy.tscn")
 
 var time = 0
 
@@ -16,10 +17,12 @@ func _ready() -> void:
 
 func _process(_delta) -> void:
 	if(Input.is_action_just_pressed("test_Spider")):
-		_on_mob_spawn("spider", "0")
-	if(Input.is_action_just_pressed("test_Fish")):
-		_on_mob_spawn("fish", "0")
-	
+		_on_mob_spawn("spider", "5", "1", "30", "0")
+		_on_mob_spawn("fish", "10", "2", "10", "0")
+		_on_mob_spawn("fish", "10", "2", "10", "0")
+		_on_mob_spawn("fish", "10", "2", "10", "0")
+		_on_mob_spawn("snail", "15", "1", "30", "0")
+
 func _on_timer_timeout():
 	time += 1
 	var enemy_spawns = spawns
@@ -67,25 +70,21 @@ func get_random_position():
 	
 	return Vector2(x_spawn, y_spawn)
 
-func _on_mob_spawn(type: String, id: String) -> void:
+func _on_mob_spawn(type: String, life: String, damage: String, cost: String, id: String) -> void:
+	var enemy_spawn: RigidBody2D = null
 	match type:
 		"fish":
-			var enemy_spawn: CharacterBody2D = FISH_ENEMY.instantiate()
-			enemy_spawn.global_position = get_random_position()
-			enemy_spawn._id = id
-			add_child(enemy_spawn)
+			enemy_spawn = FISH_ENEMY.instantiate()
 		"snail":
-			var enemy_spawn: CharacterBody2D = FISH_ENEMY.instantiate()
-			enemy_spawn.global_position = get_random_position()
-			enemy_spawn._id = id
-			add_child(enemy_spawn)
+			enemy_spawn = SNAIL_ENEMY.instantiate()
 		"dog":
-			var enemy_spawn: CharacterBody2D = FISH_ENEMY.instantiate()
-			enemy_spawn.global_position = get_random_position()
-			enemy_spawn._id = id
-			add_child(enemy_spawn)
+			enemy_spawn = FISH_ENEMY.instantiate()
 		"spider":
-			var enemy_spawn: CharacterBody2D = SPIDER_ENEMY.instantiate()
-			enemy_spawn.global_position = get_random_position()
-			enemy_spawn._id = id
-			add_child(enemy_spawn)
+			enemy_spawn = SPIDER_ENEMY.instantiate()
+	if(enemy_spawn != null):
+		enemy_spawn.global_position = get_random_position()
+		enemy_spawn.hp = int(life)
+		enemy_spawn.get_node("HitBox").damage = int(damage)
+		enemy_spawn.experience = float(cost)/10
+		enemy_spawn._id = id
+		add_child(enemy_spawn)

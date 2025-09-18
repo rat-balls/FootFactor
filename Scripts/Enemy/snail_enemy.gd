@@ -1,8 +1,8 @@
 extends RigidBody2D
 
-@export var movement_speed = 100.0
+@export var movement_speed = 60.0
 @export var hp = 10
-@export var knockback_recovery = 3.5
+@export var knockback_recovery = 2
 @export var experience = 1
 var knockback = Vector2.ZERO
 var _id = 0
@@ -11,6 +11,7 @@ var _id = 0
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var sound_hit = $snd_hit
+const ACID_POOL = preload("res://Scenes/Prefabs/Enemy/acid_pool.tscn")
 
 var death_anim: Resource = preload("res://Scenes/Prefabs/Enemy/explosion.tscn")
 
@@ -18,10 +19,13 @@ var exp_gem = preload("res://Scenes/Prefabs/Objects/experience.tscn")
 
 signal remove_from_array(object)
 
+
 func _ready():
 	hp += player.time * 0.1
 
+
 func _physics_process(_delta: float) -> void:
+	
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	var direction = global_position.direction_to(player.global_position)
 	linear_velocity = direction * movement_speed
@@ -74,6 +78,10 @@ func death():
 	loot_base.call_deferred("add_child", new_gem)
 	
 	Client.enemy_death.emit(_id)
+	
+	var new_slime_pool = ACID_POOL.instantiate()
+	new_slime_pool.global_position = global_position
+	get_parent().call_deferred("add_child", new_slime_pool)
 	
 	queue_free()
 

@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://c0hagdrd4jo2c"]
 
 [ext_resource type="Texture2D" uid="uid://dyj7laqvmqysv" path="res://Assets/Sprites/Enemies/webball_spritesheet.png" id="1_2krlk"]
-[ext_resource type="Script" uid="uid://h8jx1ujn5x6h" path="res://Scenes/Prefabs/Enemy/webball.gd" id="1_b0t50"]
+[ext_resource type="Script" uid="uid://h8jx1ujn5x6h" path="res://Scripts/Enemy/webball.gd" id="1_b0t50"]
 [ext_resource type="AudioStream" uid="uid://x0nm6hkhee0o" path="res://Assets/SFX/Révolution Verte.mp3" id="2_2krlk"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2krlk"]
-radius = 8.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_b0t50"]
+radius = 9.0
 
 [node name="Webball" type="Area2D" groups=["attack"]]
 top_level = true
@@ -18,7 +18,7 @@ script = ExtResource("1_b0t50")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.38419e-07)
 rotation = 0.785398
-shape = SubResource("CircleShape2D_2krlk")
+shape = SubResource("CircleShape2D_b0t50")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(2, 1.5, 1.5, 1)
@@ -28,7 +28,7 @@ hframes = 3
 vframes = 2
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 15.0
+wait_time = 5.0
 autostart = true
 
 [node name="snd_play" type="AudioStreamPlayer2D" parent="."]
