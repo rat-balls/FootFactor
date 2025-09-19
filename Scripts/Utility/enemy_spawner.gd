@@ -6,9 +6,10 @@ extends Node2D
 const FISH_ENEMY = preload("res://Scenes/Prefabs/Enemy/fish_enemy.tscn")
 const SPIDER_ENEMY = preload("res://Scenes/Prefabs/Enemy/spider_enemy.tscn")
 const SNAIL_ENEMY = preload("res://Scenes/Prefabs/Enemy/snail_enemy.tscn")
+const COLLISION_CHECK = preload("res://Scenes/Prefabs/Utility/collision_check.tscn")
 
 var time = 0
-
+ 
 signal changetime(time: int)
 
 func _ready() -> void:
@@ -68,7 +69,18 @@ func get_random_position():
 	var x_spawn = randf_range(spawn_pos1.x, spawn_pos2.x)
 	var y_spawn = randf_range(spawn_pos1.y, spawn_pos2.y)
 	
-	return Vector2(x_spawn, y_spawn)
+	var new_coll_check: Area2D = COLLISION_CHECK.instantiate()
+	new_coll_check.global_position = Vector2(x_spawn, y_spawn)
+	add_child(new_coll_check)
+	wait(0.1)
+	if(new_coll_check.walled):
+		print("walled")
+		return get_random_position()
+	else:
+		return Vector2(x_spawn, y_spawn)
+
+func wait(seconds: float) -> void:
+	await get_tree().create_timer(seconds).timeout
 
 func _on_mob_spawn(type: String, life: String, damage: String, cost: String, id: String) -> void:
 	if(Client.enemy_pooling.filter(func(element): return element.type == type).size() > 0):
