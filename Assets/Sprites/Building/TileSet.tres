@@ -379,5 +379,6 @@ tile_layout = 5
 tile_size = Vector2i(32, 16)
 occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
 sources/2 = SubResource("TileSetAtlasSource_k6hpe")
 sources/3 = SubResource("TileSetAtlasSource_cyn3c")
