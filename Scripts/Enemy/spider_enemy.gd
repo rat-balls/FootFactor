@@ -37,16 +37,17 @@ func _ready():
 
 
 func _physics_process(_delta: float) -> void:
+	linear_velocity += knockback / 8
+	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
+
 	if(attacking):
 		sprite.texture = SPIDER_MONSTER_COBWEB
 	else:
 		sprite.texture = SPIDER_MONSTER
 	frameCount += 1
 	if (frameCount % updateRate == 0 && not dead):
-		knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 		var direction = global_position.direction_to(player.global_position)
 		linear_velocity = direction * movement_speed
-		linear_velocity += knockback
 		if attacking or global_position.distance_to(player.global_position) < 450:
 			linear_velocity = Vector2.ZERO
 		

@@ -15,6 +15,5 @@ func _ready():
 func _physics_process(delta):
 	position += angle * speed * delta
 
-
 func _on_timer_timeout():
 	queue_free()

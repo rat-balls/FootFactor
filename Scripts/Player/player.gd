@@ -126,17 +126,26 @@ func movement():
 func attack():
 	if(letterOpener_level > 0):
 		var attacktime = letterOpener_attackspeed * (1 - spell_cooldown)
-		letterOpenerTimer.wait_time = attacktime if attacktime > 0 else 0.1
+		if attacktime > 0:
+			letterOpenerTimer.wait_time = attacktime
+		else:
+			letterOpenerTimer.wait_time = 0.1
 		if letterOpenerTimer.is_stopped():
 			letterOpenerTimer.start()
 	if(sticky_level > 0):
 		var attacktime = sticky_attackspeed * (1 - spell_cooldown)
-		sticky_timer.wait_time = attacktime if attacktime > 0 else 0.1
+		if attacktime > 0:
+			sticky_timer.wait_time = attacktime
+		else:
+			sticky_timer.wait_time = 0.1
 		if sticky_timer.is_stopped():
 			sticky_timer.start()
 	if(letter_level > 0):
 		var attacktime = letter_attackspeed * (1 - spell_cooldown)
-		letterTimer.wait_time = attacktime if attacktime > 0 else 0.1
+		if attacktime > 0:
+			letterTimer.wait_time = attacktime
+		else:
+			letterTimer.wait_time = 0.1
 		if letterTimer.is_stopped():
 			letterTimer.start()
 	if staby_level > 0:

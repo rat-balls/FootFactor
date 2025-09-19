@@ -3,7 +3,7 @@ extends RigidBody2D
 var type = "snail"
 @export var movement_speed = 60.0
 @export var hp = 10
-@export var knockback_recovery = 2
+@export var knockback_recovery = 10
 @export var experience = 1
 var knockback = Vector2.ZERO
 var _id = 0
@@ -31,12 +31,13 @@ func _ready():
 
 
 func _physics_process(_delta: float) -> void:
+	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
+	linear_velocity += knockback / 8
+
 	frameCount += 1
 	if (frameCount % updateRate == 0 && not dead):
-		knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 		var direction = global_position.direction_to(player.global_position)
 		linear_velocity = direction * movement_speed
-		linear_velocity += knockback
 		
 		var right_big = direction.x > 0.5
 		var right_small = direction.x > 0.25
