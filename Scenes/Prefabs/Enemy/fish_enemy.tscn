@@ -21,7 +21,7 @@ size = Vector2(63, 63)
 
 [node name="fish_enemy" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 6
 mass = 0.001
 physics_material_override = SubResource("PhysicsMaterial_na7l1")
 gravity_scale = 0.0
