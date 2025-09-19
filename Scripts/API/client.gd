@@ -24,7 +24,7 @@ var enemy_pooling: Array = []
 var socket = WebSocketPeer.new()
 
 func _ready():
-	websocket_url += config.get_value("CLIENT", "token", "c5dcaed7-a290-41df-baad-3f75babb5ebd	")
+	websocket_url += config.get_value("CLIENT", "token", "c5dcaed7-a290-41df-baad-3f75babb5ebd")
 	# Initiate connection to the given URL.
 	var err = socket.connect_to_url(websocket_url)
 	if err != OK:

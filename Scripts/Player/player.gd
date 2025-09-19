@@ -89,6 +89,8 @@ func _ready():
 
 func _physics_process(_delta: float) -> void:
 	movement()
+	if time >= 300:
+		death()
 
 func movement():
 	var x_mov = Input.get_action_strength("Right") - Input.get_action_strength("Left")
