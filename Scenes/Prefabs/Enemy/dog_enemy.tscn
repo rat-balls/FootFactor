@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://var27c1p82ct"]
+
+[ext_resource type="Script" uid="uid://c7gbl0ony8hwa" path="res://Scripts/Enemy/dog_enemy.gd" id="1_nx3jg"]
+[ext_resource type="Texture2D" uid="uid://dvqf1mw4bn6ab" path="res://Assets/Sprites/Enemies/fish_enemy_spritesheet.png" id="2_5i8xd"]
+[ext_resource type="PackedScene" uid="uid://5ubgwi0xjbt2" path="res://Scenes/Prefabs/Utility/hit_box.tscn" id="3_hfnb2"]
+[ext_resource type="PackedScene" uid="uid://68m3jdutqtxw" path="res://Scenes/Prefabs/Utility/hurt_box.tscn" id="4_sei2r"]
+[ext_resource type="AudioStream" uid="uid://373vs02i61cx" path="res://Assets/SFX/Audio_SoundEffect_enemy_hit.ogg" id="5_583ck"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_na7l1"]
+friction = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_022wn"]
+radius = 29.0
+height = 84.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5slor"]
+size = Vector2(30.75, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mha1i"]
+size = Vector2(63, 63)
+
+[node name="dog_enemy" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 6
+mass = 0.2
+physics_material_override = SubResource("PhysicsMaterial_na7l1")
+gravity_scale = 0.0
+inertia = 100.0
+lock_rotation = true
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("1_nx3jg")
+movement_speed = 300.0
+hp = 30
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 8)
+scale = Vector2(1, 0.593333)
+texture = ExtResource("2_5i8xd")
+hframes = 3
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -2)
+shape = SubResource("CapsuleShape2D_022wn")
+
+[node name="HitBox" parent="." instance=ExtResource("3_hfnb2")]
+collision_layer = 2
+collision_mask = 2
+damage = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+visible = false
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_5slor")
+
+[node name="HurtBox" parent="." instance=ExtResource("4_sei2r")]
+collision_layer = 4
+collision_mask = 4
+HurtBoxType = 1
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+visible = false
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_mha1i")
+
+[node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_583ck")
+volume_db = -20.0
+
+[connection signal="area_exited" from="HurtBox" to="HurtBox" method="_on_area_exited"]
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HitBox"]
+[editable path="HurtBox"]

@@ -6,6 +6,7 @@ extends Node2D
 const FISH_ENEMY = preload("res://Scenes/Prefabs/Enemy/fish_enemy.tscn")
 const SPIDER_ENEMY = preload("res://Scenes/Prefabs/Enemy/spider_enemy.tscn")
 const SNAIL_ENEMY = preload("res://Scenes/Prefabs/Enemy/snail_enemy.tscn")
+const DOG_ENEMY = preload("res://Scenes/Prefabs/Enemy/dog_enemy.tscn")
 
 var time = 0
 
@@ -17,11 +18,11 @@ func _ready() -> void:
 
 func _process(_delta) -> void:
 	if(Input.is_action_just_pressed("test_Spider")):
-		_on_mob_spawn("spider", "5", "1", "30", "0")
+		_on_mob_spawn("dog", "30", "3", "50", "0")
 		_on_mob_spawn("fish", "10", "2", "10", "0")
 		_on_mob_spawn("fish", "10", "2", "10", "0")
 		_on_mob_spawn("fish", "10", "2", "10", "0")
-		_on_mob_spawn("snail", "15", "1", "30", "0")
+		_on_mob_spawn("dog", "30", "3", "50", "0")
 
 func _on_timer_timeout():
 	time += 1
@@ -84,7 +85,7 @@ func spawn_mob(type: String, life: String, damage: String, cost: String, id: Str
 		"snail":
 			enemy_spawn = SNAIL_ENEMY.instantiate()
 		"dog":
-			enemy_spawn = FISH_ENEMY.instantiate()
+			enemy_spawn = DOG_ENEMY.instantiate()
 		"spider":
 			enemy_spawn = SPIDER_ENEMY.instantiate()
 	if(enemy_spawn != null):

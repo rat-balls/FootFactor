@@ -62,6 +62,37 @@ func update_staby():
 
 func _physics_process(delta):
 	if(target):
+		var right_big = angle.x > 0.5
+		var right_small = angle.x > 0.25
+		var up_big = angle.y < -0.5
+		var down_big = angle.y > 0.5
+		var left_big = angle.x < -0.5
+		var left_small = angle.x < -0.25
+		
+		if up_big and right_small:
+			sprite.frame = 2
+			#up_right
+		elif up_big and left_small:
+			sprite.frame = 1
+			#up_left
+		elif down_big and right_small:
+			sprite.frame = 0
+			#down_right
+		elif down_big and left_small:
+			sprite.frame = 3
+			#down_left
+		elif up_big:
+			sprite.frame = 6
+			#up
+		elif down_big:
+			sprite.frame = 4
+			#down
+		elif right_big:
+			sprite.frame = 5
+			#right
+		elif left_big:
+			sprite.frame = 7
+	
 		position += angle * speed * delta
 
 func add_paths():
@@ -78,10 +109,10 @@ func add_paths():
 	process_path()
 
 func process_path():
-	
+
 	angle = global_position.direction_to(target)
 	
-	if angle.x > 0.1:
+	'''if angle.x > 0.1:
 		sprite.flip_h = true
 	elif angle.x < -0.1:
 		sprite.flip_h = false
@@ -91,7 +122,7 @@ func process_path():
 	angle_tween.play()
 	angle_tween.tween_property(self, "rotation_degrees", 0, 0.2)
 	angle_tween.play()
-	
+	'''
 	charge_timer.start()
 
 func enable_attack(atk = true):

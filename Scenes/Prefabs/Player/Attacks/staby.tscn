@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://d0ir5fpwemn52"]
 
-[ext_resource type="Texture2D" uid="uid://bdkysqo7f5xni" path="res://Assets/Sprites/Player/Attacks/STABY.png" id="1_4bwtm"]
 [ext_resource type="Script" uid="uid://b1qyvgqknkdyo" path="res://Scripts/Player/Attacks/staby.gd" id="1_lb4wc"]
+[ext_resource type="Texture2D" uid="uid://dmudqe32o3uey" path="res://Assets/Sprites/Player/Attacks/staby_spritesheet.png" id="2_lb4wc"]
 [ext_resource type="AudioStream" uid="uid://x0nm6hkhee0o" path="res://Assets/SFX/Révolution Verte.mp3" id="3_lb4wc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lb4wc"]
-size = Vector2(50, 80)
+size = Vector2(80.0001, 120)
 
 [node name="Staby" type="Area2D" groups=["attack"]]
 top_level = true
@@ -16,11 +16,13 @@ script = ExtResource("1_lb4wc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 10
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_4bwtm")
+texture = ExtResource("2_lb4wc")
+hframes = 3
+vframes = 3
+frame = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.18252e-05, 5)
+position = Vector2(5.1458e-06, 2.11596e-05)
 rotation = 1.5708
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_lb4wc")
