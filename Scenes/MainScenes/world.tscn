@@ -49,14 +49,15 @@ spawns = Array[ExtResource("2_uww6s")]([])
 [node name="Player" parent="." instance=ExtResource("1_ehvkl")]
 position = Vector2(604, 338)
 
+[node name="BGMusic" type="AudioStreamPlayer2D" parent="Player"]
+position = Vector2(-604, -338)
+stream = ExtResource("7_87h1v")
+volume_db = -12.0
+autoplay = true
+
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
 [node name="Experience" parent="." instance=ExtResource("3_woslj")]
 z_index = 10
 position = Vector2(411, 345)
 experience = 5
-
-[node name="BGMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_87h1v")
-volume_db = -12.0
-autoplay = true
