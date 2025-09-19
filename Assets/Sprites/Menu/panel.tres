@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cjihhwrerykc6"]
+
+[ext_resource type="Texture2D" uid="uid://5iyvudctawph" path="res://Assets/Sprites/Menu/Rect-Dark-Default.png" id="1_7fsfk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dsd0e"]
+texture = ExtResource("1_7fsfk")
+
+[resource]
+Panel/styles/panel = SubResource("StyleBoxTexture_dsd0e")

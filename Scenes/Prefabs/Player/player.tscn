@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://2xuoik3yu85u"]
+[gd_scene load_steps=17 format=3 uid="uid://2xuoik3yu85u"]
 
 [ext_resource type="Script" uid="uid://c853uu0lk0y2t" path="res://Scripts/Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://cs2d27misya4m" path="res://Assets/Sprites/Player/foot_spritesheet.png" id="2_e6m8t"]
@@ -9,6 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://cmvrwwtvrfhog" path="res://Assets/SFX/enemy_death.ogg" id="6_e6m8t"]
 [ext_resource type="Texture2D" uid="uid://m1dc46u28w1k" path="res://Assets/Sprites/Player/GUI/healthbar.png" id="7_e3lwr"]
 [ext_resource type="Texture2D" uid="uid://jabw3th87wqd" path="res://Assets/Sprites/Player/GUI/health.png" id="8_tr6l7"]
+[ext_resource type="Theme" uid="uid://cjihhwrerykc6" path="res://Assets/Sprites/Menu/panel.tres" id="10_q4i4y"]
+[ext_resource type="Theme" uid="uid://og2hyrpuvchr" path="res://Assets/Sprites/Menu/button.tres" id="11_dtci2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k45qg"]
 radius = 731.8
@@ -221,6 +223,7 @@ offset_bottom = 290.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+theme = ExtResource("10_q4i4y")
 
 [node name="lbl_level" type="Label" parent="GUILayer/LevelUp"]
 layout_mode = 1
@@ -263,6 +266,7 @@ offset_right = 203.0
 offset_bottom = -59.0
 grow_horizontal = 2
 size_flags_horizontal = 4
+theme = ExtResource("10_q4i4y")
 
 [node name="lbl_Result" type="Label" parent="GUILayer/DeathPanel"]
 unique_name_in_owner = true
@@ -287,6 +291,7 @@ offset_right = 74.0
 offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("11_dtci2")
 text = "RESTART"
 
 [node name="MenuButton" type="Button" parent="GUILayer/DeathPanel"]
@@ -303,6 +308,7 @@ offset_right = 74.0
 offset_bottom = -60.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("11_dtci2")
 text = "MENU"
 
 [node name="snd_level" type="AudioStreamPlayer2D" parent="GUILayer/DeathPanel"]
